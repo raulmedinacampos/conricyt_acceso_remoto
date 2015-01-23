@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Acceso Remoto CONRICYT"
+AuthUserFile "/home/conricyt/.htpasswds/public_html/conremoto/authsni/passwd"
+require valid-user

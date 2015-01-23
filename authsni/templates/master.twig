@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Summon- Ingrese</title>
+
+{% block css %}
+	<link href="css/thrColFix.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+	<style type="text/css">
+	<!--
+
+	.COLOR {
+		color: #FF8000;
+	}
+	.GRIS {
+		color: #808080;
+	}
+	p {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 0.8em;
+	}
+	body	{
+		
+		margin: 0;
+	padding: 0;
+		color: #666;
+	}
+	h2 {
+		color: #6981AD;
+	}
+	#close {
+		float: right;
+	}
+	#content {
+		padding-right: 10px;
+		padding-left: 10px;
+	
+	}
+	-->
+	</style>
+
+</head> 
+
+<body>
+
+	<div class="container">
+	  <div class="content">
+		  <div style="text-align:center;">
+				<img src="images/header-summon-background-01.png" alt="header" />
+				{% block content %}{% endblock %}
+		</div>
+	  </div>
+	
+</div>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+	<script type="text/javascript" src="js/noty/themes/default.js"></script>
+	{% block js %}{% endblock %}
+</body>
+</html>

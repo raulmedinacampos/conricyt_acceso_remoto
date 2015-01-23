@@ -1,0 +1,18 @@
+<?php
+
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$dbname = 'authtest';
+
+// $host = '66.147.244.209';
+// $username = 'etecheng';
+// $password = 'Pined1957!blue';
+// $dbname = 'etecheng_Conricyt_Institutions';
+
+try {
+	$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e){
+	echo "ERROR: " . $e->getMessage();
+}

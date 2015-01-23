@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Servicio de Acceso Remoto- Conricyt</title>
+</head>
+<body>
+<div style="text-align:left; font-size:0.9em" >
+<h1>Conricyt - Su solicitud no ha sido autorizada</h1>
+<h3><strong>Estimado(a) {{ user.firstname }} {{ user.lastname }}:</strong></h3>
+<p>Durante el proceso de verificaci&#243;n, su solicitud para cuenta de acceso remoto no fue aprobada.</p>
+<h2>
+  <strong>Informaci&#243;n  de Registro:</strong></h2>
+  
+<table border="1" style="margin-left:100px; padding:none">
+  <tr>
+    <td colspan="2" valign="top"><p align="center"><img src="http://www.etechwebsite.com/conricyt/images/conricyt2.png" /><strong>Solicitud de Acceso Remoto</strong></p></td>
+  </tr>
+  <tr>
+    <td><p>RFC:</p></td>
+    <td><p>{{ user.rfc }}</p></td>
+  </tr>
+  <tr>
+    <td><p>Nombre    completo:</p></td>
+    <td><p>{{ user.firstname }} {{ user.lastname }}</p></td>
+  </tr>
+  <tr>
+    <td><p>Nombre de    la Instituci&#243;n:</p></td>
+    <td><p>{{ user.Institution.inst_name }}</p></td>
+  </tr>
+  <tr>
+    <td><p>Fecha:</p></td>
+    <td><p> {{"now"|date('d/m/Y')}} </p></td>
+  </tr>
+</table>
+<table border="0" cellspacing="3" cellpadding="0" width="100%">
+  <tr>
+    <td valign="top"></td>
+  </tr>
+  <tr>
+    <td valign="top"></td>
+  </tr>
+</table>
+<h2 ><strong>Que debe hacer:</strong></h2>
+<p >  Por favor p&#243;ngase en contacto enviando un correo electr&#243;nico a la direcci&#243;n: <a href="mailto:conricyt@conacyt.mx">conricyt@conacyt.mx</a> para solucionar cualquier  problema al respecto, y conseguir que su clave de acceso sea procesada.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Servicio de Acceso Remoto - CONRICYT</title>
+</head>
+<body>
+
+<div style="text-align:left; font-size:0.9em" >
+<h1>Autorizaci&oacute;n Acceso Remoto  - CONRICYT</h1>
+<h3><strong>Apreciable {{ user.firstname }} {{ user.lastname }}:</strong></h3>
+
+<div align="center">
+	<table border="1" width="640" id="table1" style="border-collapse: collapse" cellpadding="3">
+		<tr>
+			<td>
+			<p align="center">A continuaci&oacute;n encontrar&aacute;s tus datos de acceso 
+			para el Servicio de Acceso Remoto a los Recursos Electr&#243;nicos del Consorcio Nacional de Recursos de Informaci&#243;n Cient&#237;fica y Tecnol&#243;gica (CONRICYT).
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<p>Tu clave de acceso remoto est&#225; activada y mediante ella podr&#225;s acceder a los recursos electr&#243;nicos a los que tiene derecho la Instituci&#243;n a la que perteneces, a trav&#233;s del sitio <a href="http://etechwebsite.com/conricyt/conricyt-select/">http://etechwebsite.com/conricyt/conricyt-select/</a>. Recuerda que si tienes alg&#250;n problema para acceder, puedes escribir un correo electr&#243;nico a la direcci&#243;n: 
+<a href="mailto:consorcio@conacyt.mx?subject=Problema con acceso">consorcio@conacyt.mx</a> para apoyarte y solucionar el mismo.</p>
+
+<h2>
+  <strong>Guarde esta informaci&#243;n  de acceso en un sitio seguro:</strong></h2>
+  <ul>
+<li>Usuario : <strong>{{ user.Credentials.username }}</strong></li>
+<li>Contrase&#241;a : <strong>{{ user.Credentials.password }}</strong></li>
+</ul>
+  
+<table border="1" style="margin-left:0px; padding:none" cellpadding="3">
+  <tr>
+    <td colspan="2" valign="top"><p align="center"><img src="http://conricyt.mx/conremoto/auth/conricyt2.png" /><strong>Servicio de Acceso Remoto</strong></p></td>
+  </tr>
+  <tr>
+    <td><p align="right">RFC:</p></td>
+    <td><p>{{ user.rfc }}</p></td>
+  </tr>
+  <tr>
+    <td><p align="right">Nombre completo:</p></td>
+    <td><p>{{ user.firstname }} {{ user.lastname }}</p></td>
+  </tr>
+  <tr>
+    <td><p align="right">Nombre de la Instituci&#243;n:</p></td>
+    <td><p>{{ user.Institution.inst_name }}</p></td>
+  </tr>
+  <tr>
+    <td><p align="right">Fecha de aprobaci&#243;n:</p></td>
+    <td><p> {{"now"|date('d/m/Y')}} </p></td>
+  </tr>
+</table>
+<table border="0" cellspacing="3" cellpadding="0" width="100%">
+  <tr>
+    <td valign="top"></td>
+  </tr>
+  <tr>
+    <td valign="top"></td>
+  </tr>
+</table>
+<p align="center" style="font-size:0.8em">*Si deseas conocer cu&#225;les son los  recursos electr&#243;nicos a los que tu Instituci&#243;n tiene acceso por parte del  CONRICYT,<br>
+puedes consultarlos en <a href="http://www.conricyt.mx/acervo-editorial/recursos-por-institucion.htm">http://www.conricyt.mx/acervo-editorial/recursos-por-institucion.htm</a></p>
+
+<p style="text-align: justify">
+<strong>Aviso de Confidencialidad</strong>
+<br />
+En el Consorcio Nacional de Recursos de Informaci&#243;n Cient&#237;fica y Tecnol&#243;gica (CONRICYT), www.conricyt.mx, con domicilio en Av. Insurgentes Sur 1582, Col. Cr&#233;dito Constructor, Delegaci&#243;n Benito Ju&#225;rez, C.P.: 03940, M&#233;xico, D.F.; la informaci&#243;n de nuestros usuarios es tratada en forma estrictamente confidencial por lo que sus datos personales son utilizados &#250;nicamente con la finalidad de brindar acceso a los recursos electr&#243;nicos proporcionados por el Consorcio.</p>
+<p style="text-align: justify">
+&nbsp;</p>
+<p style="text-align: center">
+<strong>T&#201;RMINOS Y CONDICIONES DE USO PARA LA CUENTA DE ACCESO REMOTO A LOS RECURSOS ELECTR&#211;NICOS DEL CONRICYT</strong></p>
+<p style="text-align: justify">
+Los recursos electr&#243;nicos de informaci&#243;n cient&#237;fica y tecnol&#243;gica, asignados a su instituci&#243;n por medio del CONRICYT tienen la finalidad de apoyar las tareas sustantivas de las comunidades acad&#233;micas y cient&#237;ficas tales como la: docencia e investigaci&#243;n, por lo que su uso est&#225; destinado exclusivamente para fines acad&#233;micos.
+
+</p>
+<p style="text-align: justify">
+Reconozco que el uso de mi cuenta de acceso remoto es personal, privada e intransferible, por lo que en ning&#250;n caso podr&#233; prestarla a ning&#250;n otro usuario, incluyendo cualquier otro miembro de la comunidad universitaria a la que pertenezco.</p>
+<p style="text-align: justify">
+Los contratos contra&#237;dos con las casas editoras e integradoras proh&#237;ben que los recursos electr&#243;nicos sean utilizados para los siguientes prop&#243;sitos:</p>
+<p style="text-align: justify">
+En ning&#250;n caso, podr&#233; modificar, adaptar, transformar, traducir ni crear o vender ning&#250;n trabajo derivado en cualquier medio, basado en los recursos electr&#243;nicos o que incluya tales materiales; tampoco podr&#233; utilizar de otro modo dichos materiales de manera tal que viole los derechos de autor u otros derechos de propiedad exclusiva sobre ellos.</p>
+<p style="text-align: justify">
+No podr&#233; eliminar, ocultar ni modificar de ning&#250;n modo los avisos de derechos de autor, marca comercial u otros avisos de derechos de propiedad exclusiva, atribuciones de autor&#237;a ni exclusiones de responsabilidad incluidos por los editores y autores.</p>
+<p style="text-align: justify">
+No me est&#225; permitida la descarga masiva y/o sistem&#225;tica de documentos.</p>
+<p style="text-align: justify">
+No me est&#225; permitida la reproducci&#243;n sustancial o sistem&#225;tica ni el suministro o distribuci&#243;n sistem&#225;ticos de copias &#250;nicas o m&#250;ltiples en cualquier forma a personas que no sean usuarios autorizados.</p>
+<p style="text-align: justify">
+No me est&#225; permitida la distribuci&#243;n de cualquier parte de los recursos en red electr&#243;nica.</p>
+<p style="text-align: justify">
+Reconozco y Acepto que estoy enterado(a) que, la violaci&#243;n de cualquiera de las prohibiciones se&#241;aladas p&#225;rrafos arriba tendr&#225; como sanci&#243;n la suspensi&#243;n inmediata e irrevocable de mi clave de acceso remoto, sin que pueda ser sujeto(a) a una renovaci&#243;n de la misma. La suspensi&#243;n inmediata e irrevocable de mi clave de acceso remoto ser&#225; notificada a mi Instituci&#243;n de adscripci&#243;n.
+<br />
+
+</p>
+
+</div>
+</body>
+</html>

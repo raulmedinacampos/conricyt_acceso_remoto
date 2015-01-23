@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	text-align: center;
+}
+
+h2 {
+    border-bottom: 1px solid #ABABAB;
+    border-top: 1px solid #ABABAB;
+    line-height: 30px;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.contenedor {
+	margin: auto;
+	width: 965px;
+	text-align: left;
+}
+
+.contenedor table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px #000000 solid;
+}
+
+.contenedor table th {
+	background-color: #526D83;
+    color: #FFFFFF;
+    padding: 5px;
+}
+
+.contenedor table tr:nth-child(even) {
+    background-color: #DCDCDC;
+}
+
+.contenedor table td {
+	padding: 5px;
+	border-top: 1px #000000 solid;
+	vertical-align: top;
+}
+
+.contenedor table ul {
+	margin: 0;
+	padding: 0 0 0 18px;
+}

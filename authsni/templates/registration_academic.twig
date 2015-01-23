@@ -1,0 +1,82 @@
+{% extends 'master.twig' %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+<h2>Solicite su cuenta de Acceso Remoto como -<strong>Académico  o Administrativo</strong>-</h2>
+<div style="text-align:left">
+<form id="form1" name="form1" method="post" action="">
+  <p>
+    <label for="name">Nombre(s)*</label>
+    <input type="text" name="name" id="name" />
+  </p>
+  <p>
+    <label for="lastname">Apellido(s)*</label>
+    <input type="text" name="lastname" id="lastname" />
+    </p>
+  <p>
+    <label for="rfc">RFC con homoclave* </label>
+    <input type="text" name="rfc" id="rfc" />
+  </p>
+  <p>
+    Sexo
+    <select name="Sexo" size="1">
+      <option value="m">Masculino</option>
+      <option value="f">Femenino</option>
+    </select>
+  </p>
+  <p>Institución a la que pertenece*<br />
+<select id="myselect">
+	{% for institution in institutions %}
+	<option value="{{ institution.id }}">{{ institution.inst_name }}</option>
+	{% endfor %}
+	</select>
+  </p>
+<p>
+    <label for="id">Número de Empleado o Número Económico*  </label>
+    <input type="text" name="id" id="id" />
+  </p>
+  
+  <p>
+    <label for="email1">Correo electrónico institucional*   </label>
+    <input type="text" name="email1" id="email1" />
+  </p>
+  
+  <p>
+    <label for="email2">Correo electrónico comercial   </label>
+    <input type="text" name="email2" id="email2" />
+  </p>
+  
+ <p>
+   Perfil
+      <select name="Nivel" size="1">
+      <option value="ac">Académico</option>
+      <option value="bi">Bibliotecario</option>
+       <option value="re">Referencista</option>
+        <option value="ot">Otro</option>
+        
+          
+    </select>
+  </p>
+  
+   <p>
+    <label for="facultad">Dependencia o Facultad  </label>
+    <input type="text" name="email2" id="email2" />
+  </p>
+   <p>
+     <label for="yes">Acepta los Términos y Condiciones del uso de la cuenta</label>
+     <input type="checkbox" name="yes" id="yes" />
+   </p>
+   <p>
+     <input type="submit" name="Registrar" id="Registrar" value="Registar" />
+     <input type="reset" name="Back" id="Back" value="Regresar" style="margin-left:10px" />
+   </p>
+</form>
+</div>
+{% endblock %}

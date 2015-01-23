@@ -1,0 +1,6 @@
+registration academic 	-> registration.php?profile=ac
+registration estudiante -> registration.php?profile=es
+approval all 			-> registration.php?user=all
+approval unapproved		-> registration.php?user=unapproved
+approval academic		-> registration.php?user=ac
+approval estudiante		-> registration.php?user=es

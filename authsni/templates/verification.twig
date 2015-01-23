@@ -1,0 +1,143 @@
+{% extends 'master.twig' %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#userlist').on('click', '.approve', function(event){
+		event.preventDefault();
+		var id = $(event.target).parent().parent().siblings('.identifier').text();
+		$.post(
+			'registration.php',
+			{'verify' : id},
+			function(data){
+				console.log(data);
+				if(data == 'false'){
+					noty({
+						text : 'Not Successful',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				} else {
+					$(event.target).parent().hide();
+					noty({
+						text : 'Success',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				}
+			}
+		);
+	});
+
+	$('#userlist').on('click', '.reject', function(event){
+		event.preventDefault();
+		var id = $(event.target).parent().parent().siblings('.identifier').text();
+		$.post(
+			'registration.php',
+			{'reject' : id},
+			function(data){
+				console.log(data);
+				if(data == 'false'){
+					noty({
+						text : 'Not Successful',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				} else {
+					$(event.target).parent().parent().parent().hide();
+					noty({
+						text : 'Success',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				}
+			})
+	})
+	$('#userlist').on('click', '.suspend', function(event){
+		event.preventDefault();
+		var id = $(event.target).parent().parent().siblings('.identifier').text();
+		var req_data = {'suspend' : id}
+		if($(event.target).attr('id')=== 'un'){
+			req_data = {
+				'suspend' : id,
+				'un' : true
+			}
+		}
+		$.post(
+			'registration.php',
+			req_data,
+			function(data){
+				console.log(data);
+				if(data == 'false'){
+					noty({
+						text : 'Not Successful',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				} else {
+					if($(event.target).attr('id')=== 'un'){
+						$(event.target).text('Suspend').removeAttr('id');
+					} else {
+						$(event.target).text('Unsuspend').attr('id', 'un');
+					}
+					noty({
+						text : 'Success',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				}
+			});
+	})
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<h2>Lista de usuarios por Aprobar</h2>
+<div style="float:left; margin-left:20px"><p><a href="registration.php?user=all">Ver Todos</a> | <a href="registration.php?user=unapproved">Ver Pendientes por Aprobar</a> |<a href="registration.php?user=es">Ver Estudiantes</a>	| <a href="registration.php?user=ac">Ver Académico o Administrativo </a></p></div>
+<div style="float:right; margin-right:-80px"><p><a href="registration.php?user=approved">Ver Aprobados</a> | <a href="registration.php?user=rejected">Ver Rechazados</a></p></div>
+<table border='1' style='font-size:10px;'>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>RFC con homoclave</th>
+			<th>Sexo</th>
+			<th>Institución a la que pertenece</th>
+			<th>Número de Empleado o Número Económico / Matricula o Número de Cuenta</th>
+			<th>Correo electrónico institucional</th>
+			<th>Correo electrónico comercial</th>
+			<th>Perfil / Nivel Escolar</th>
+			<th>Dependencia o Facultad</th>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Fecha de registro</th>
+			<th>Aprobar</th>
+		</tr>
+	</thead>
+	<tbody id='userlist'>
+		{% for user in users %}
+		<tr>
+			<th class='identifier'>{{ user.id }}</th>
+			<td>{{ user.firstname }}</td>
+			<td>{{ user.lastname }}</td>
+			<td>{{ user.rfc }}</td>
+			<td>{{ user.Gender }}</td>
+			<td>{{ user.Institution.inst_name }}</td>
+			<td>{{ user.account_num }}</td>
+			<td>{{ user.inst_email }}</td>
+			<td>{{ user.comm_email }}</td>
+			<td>{{ user.Profile }}</td>
+			<td>{{ user.unit_faculty }}</td>
+			<td>{{ user.Credentials.username }}</td>
+			<td>{{ user.Credentials.password }}</td>
+			<td>{{ user.fecha_reg }}</td>
+			<td><span class='approve_reject'>{% if not user.active and not user.rejected %}<a class='approve' href=''>Aprobar</a> <a class='reject' href=''>Rechazar</a>{% else %}{{ user.Credentials.used_date|date('M d, Y') }} {% if not user.suspended %}<a class='suspend' href=''>Suspend</a>{% else %}<a class='suspend' id='un' href=''>Unsuspend</a>{% endif %}{% endif %}</span></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

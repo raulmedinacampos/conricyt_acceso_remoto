@@ -1,0 +1,118 @@
+{% extends 'master.twig' %}
+
+{% block js %}
+<script type="text/javascript" src='js/jquery.recaptcha.js'></script>
+<script type="text/javascript">
+$('#form1').validate({
+	messages: {
+		firstname: 'Este campo es obligatorio.',
+		lastname: 'Este campo es obligatorio.',
+		rfc: 'Este campo es obligatorio.',
+		homoclave: 'Este campo es obligatorio.',
+		inst_email: 'Este campo es obligatorio.',
+		accept: 'Este campo es obligatorio.',
+	},
+	submitHandler: function(form){
+		rfc_regex = /[A-Z]{4}[0-9]{6}/;
+		if(!rfc_regex.test($('#rfc').val())){
+			$('#rfc_error').html('RFC debe formatear XXXX000000, donde X es un carácter en mayúscula y el 0 es un carácter numérico').show();
+			return false;
+		}
+		homoclave_regex = /[A-Z0-9]{3}/;
+		if(!homoclave_regex.test($('#homoclave').val())){
+			$('#homoclave_error').html('Homoclave debe ser formateado XXX, donde X comprende caracteres alfanuméricos.').show();
+			return false;
+		}
+		if(!validateCaptcha()){
+			return false
+		}
+
+		if($('#honeypot').val() !== ''){
+			return false;
+		}
+
+		$(form).submit();
+	}
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>Solicite su cuenta de Acceso Remoto como -<strong>{{ profile.title }}</strong>-</h2>
+<div style="text-align:left">
+	<form id="form1" name="form1" method="post" action="">
+		<input type='hidden' name='honeypot' id='honeypot' value='' />
+		<fieldset style="text-align:center;width:90%;border:2px dashed #255170; border-radius:8px;"><legend style="display:block;font-weight:bold;padding-bottom:1em;">Solicite su cuenta de Acceso Remoto como -<strong>{{ profile.title }}</strong>- </legend>
+		
+		
+		
+		  <p>
+    <label for="name">Nombre(s)*</label>
+ 
+    <input name="name" type="text" id="name" value="Nombres" size="30" style="margin-right:10px; margin-left:5px" reguired/> 
+    <input name="lastname" type="text" id="lastname" value="Apellidos" size="30" required />
+    </p>
+
+	<p><label for="rfc">RFC*</label>			<input type="text" name="rfc" id="rfc" required style="margin-left:42px; margin-right:10px" size="18" value="XXXX000000"/>
+			<label for='rfc' id='rfc_error' class='error'></label>
+		
+		
+		
+		<label>Homoclave</label>
+		<input style='width:30px' type='text' name='homoclave' id='homoclave' required/>
+			<label for='rfc' id='homoclave_error' class='error'></label></p>
+		
+	<p><label>Sexo</label>
+			<select name="gender" size="1" style="margin-left:40px">
+			<option value="">-- Seleccione Uno --</option>
+				{% for gender in genders %}
+				<option value="{{ gender.id }}">{{ gender.name|title }}</option>
+				{% endfor %}
+			</select></p>
+	</dl>	
+	
+	<p  style="color:#333333;font-size:0.8125em;font-weight:bold;"><label>Institución a la que pertenece*</label><br />
+			<select id='myselect' name='institution' required>
+			<option value="">-- Seleccione Una --</option>
+				{% for institution in institutions %}
+				<option value="{{ institution.id }}">{{ institution.inst_name }}</option>
+				{% endfor %}
+			</select></p>
+			
+	<dl style="position:relative; left:-120px">	
+	<dt><label for="id">{{ profile.id_number }}</label></dt>
+	<dd><input type="text" name="account_num" id="id" /></dd>
+
+	<dt><label for="email1">Correo electrónico institucional*</label></dt>
+	<dd><input type="text" name="inst_email" id="email1" class='email' required/></dd>
+	<dt><label for="email2">Correo electrónico comercial</label></dt>
+	<dd><input type="text" name="comm_email" id="email2" class='email' /></dd>
+		
+	<dt><label>{{ profile.level_title }}</label></dt>
+	<dd>		<select name="profile" size="1">
+	<option value="">-- Seleccione Uno --</option>
+				{% for level in profile.levels %}
+				<option value="{{ level.id }}">{{ level.name }}</option>
+				{% endfor %}
+			</select></dd>
+			
+		
+		
+
+	<dt><label for="facultad">Dependencia o Facultad</label></dt>
+	<dd><input type="text" name="unit_faculty" id="email2" /></dd>
+		
+		</dl>
+		<p><a href='terms.pdf'>Términos y Condiciones</a></p>
+		<p>
+			<label for="yes">Acepta los Términos y Condiciones del uso de la cuenta</label>
+			<input type="checkbox" name="accept" id="yes" required/>
+		</p>
+		{{ recaptcha_form|raw }}
+		<p>
+			<input type="submit" name="Registrar" id="Registrar" value="Registar"/>
+			<input type="reset" name="Back" id="Back" value="Regresar" style="margin-left:10px" />
+		</p>
+	</form>
+</div>
+{% endblock %}

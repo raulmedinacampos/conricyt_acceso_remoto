@@ -1,0 +1,11 @@
+[13-Sep-2013 13:15:09] PHP Parse error:  syntax error, unexpected T_STRING in /home/conricyt/public_html/conremoto/info/index.php on line 85
+[13-Sep-2013 13:15:40] PHP Fatal error:  Call to undefined function  mysq_fetch_row() in /home/conricyt/public_html/conremoto/info/index.php on line 97
+[13-Sep-2013 14:21:12] PHP Parse error:  syntax error, unexpected $end in /home/conricyt/public_html/conremoto/info/index.php on line 203
+[13-Sep-2013 14:39:24] PHP Parse error:  syntax error, unexpected T_STRING in /home/conricyt/public_html/conremoto/info/sendmail.php on line 101
+[13-Sep-2013 14:39:56] PHP Parse error:  syntax error, unexpected '<' in /home/conricyt/public_html/conremoto/info/sendmail.php on line 192
+[06-Nov-2013 11:02:51] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Too many connections in /home/conricyt/public_html/conremoto/info/index.php on line 91
+[31-Oct-2014 11:42:59] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/info/index.php on line 91
+[31-Oct-2014 11:43:02] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/info/index.php on line 91
+[31-Oct-2014 11:43:03] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/info/index.php on line 91
+[31-Oct-2014 11:43:14] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/info/index.php on line 91
+[31-Oct-2014 19:32:08] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/info/index.php on line 91

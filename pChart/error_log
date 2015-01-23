@@ -1,0 +1,31 @@
+[08-Aug-2013 12:06:41] PHP Warning:  Division by zero in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2624
+[08-Aug-2013 12:06:41] PHP Warning:  Division by zero in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2625
+[08-Aug-2013 12:06:41] PHP Warning:  Division by zero in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2626
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2632
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2695
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 12:06:41] PHP Warning:  Invalid argument supplied for foreach() in /home/conricyt/public_html/conremoto/pChart/pChart/pChart.class on line 2710
+[08-Aug-2013 13:16:03] PHP Parse error:  syntax error, unexpected '}' in /home/conricyt/public_html/conremoto/pChart/ondex.php on line 82
+[14-Aug-2013 10:14:16] PHP Parse error:  syntax error, unexpected T_STRING in /home/conricyt/public_html/conremoto/pChart/index.php on line 152
+[30-Oct-2014 20:56:09] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/pChart/index.php on line 61
+[31-Oct-2014 11:14:06] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/pChart/index.php on line 61
+[03-Nov-2014 10:18:47] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/pChart/index.php on line 61
+[05-Nov-2014 10:48:12] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/pChart/index.php on line 61
+[05-Nov-2014 10:50:38] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: User 'conricyt_4r3m070' has exceeded the 'max_connections_per_hour' resource (current value: 1) in /home/conricyt/public_html/conremoto/pChart/index.php on line 61

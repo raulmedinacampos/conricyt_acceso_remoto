@@ -1,0 +1,246 @@
+{% extends 'master.twig' %}
+
+{% block js %}
+<script type="text/javascript" src='js/jquery.recaptcha.js'></script>
+<script type="text/javascript">
+
+var val_email1 = false;
+var val_email2 = false;
+
+$("input[name=inst_email]").focus(function(){
+	$("#email1").nextAll().remove();
+});
+
+$("input[name=comm_email]").focus(function(){
+	$("#email2").nextAll().remove();
+});
+
+$('#rfc').keyup(function() {
+    this.value = this.value.toLocaleUpperCase();
+});
+
+$('#email1').keyup(function() {
+    this.value = this.value.toLocaleLowerCase();
+});
+
+$('#email2').keyup(function() {
+    this.value = this.value.toLocaleLowerCase();
+});
+
+$("input[name=inst_email], input[name=comm_email]").blur(function(){
+
+	$("#email1").nextAll().remove();
+	$("#email2").nextAll().remove();
+	
+	var email1 = $('#email1').val();
+	var email2 = $('#email2').val();
+			
+	var data = {email1:email1, email2:email2};
+		
+	$.ajax({
+		type: "POST",
+		url: "validaEmail.php",
+		data: data,
+		dataType: "text",
+		beforeSend: function(objeto){
+			
+        },
+		success: function(data) {
+		
+			if(data=='rep0'){
+				val_email1 = false;
+				val_email2 = false;
+			}else if(data=='rep1'){
+				val_email1 = true;
+				$("#email1").nextAll().remove();
+				$("#email1").after('<font color="#FF0000">El email ya se encuentra registrado</font>');
+			}else if(data=='rep2'){
+				val_email2 = true;
+				$("#email2").nextAll().remove();
+				$("#email2").after('<font color="#FF0000">El email ya se encuentra registrado</font>');
+			}
+			
+		},
+		error: function(objeto, quepaso, otroobj){
+        	
+        }
+	});
+});
+
+$('#form1').validate({
+	messages: {
+		firstname: 'Este campo es obligatorio.',
+		lastname: 'Este campo es obligatorio.',
+		gender: 'Este campo es obligatorio.',
+		institution: 'Este campo es obligatorio.',
+		account_num: 'Este campo es obligatorio.',
+		comm_email: 'Correo electr&oacute;nico no valido.',
+		inst_email: 'Correo electr&oacute;nico no valido.',
+		profile: 'Este campo es obligatorio.',
+		unit_faculty: 'Este campo es obligatorio.',
+		accept: 'Este campo es obligatorio.',
+	},
+	submitHandler: function(form){
+		
+		if($('#email1').val()==$('#email2').val()){
+			alert('Correo comercial debe ser diferente al institucional');
+			return false;
+		}
+		
+		if($('#rfc').val().length > 0){
+			rfc_regex = /[A-Z]{4}[0-9]{6}/;
+			if(!rfc_regex.test($('#rfc').val())){
+				$('#rfc_error').html('RFC debe ser cambiado al formato siguiente: XXXX000000, donde X es un carácter en mayúscula y el 0 es un carácter numérico').show();
+				return false;
+			
+			}
+		}
+		
+		if(!validateCaptcha()){
+			return false;
+		}
+
+		if($('#honeypot').val() !== ''){
+			return false;
+		}
+		
+		if(val_email1 || val_email2){
+			return false;
+		}
+		
+		form.submit();
+	}
+});
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+    
+<div style="text-align:center; margin-top:20px; margin-left:40px">
+
+<h2>Comités Evaluadores del Sistema Nacional de Investigadores<br>
+Solicitud de Cuenta para Acceso Remoto</h2>
+
+<!-- <h2>Solicite su cuenta de Acceso Remoto como -<strong>{{ profile.title }}</strong>-</h2> -->
+
+<div align="center">
+	<table border="1" width="640" id="table1" cellpadding="3" style="border-collapse: collapse" cellspacing="3">
+		<tr>
+			<td>
+			<p align="center">Por favor <i>completa cuidadosamente</i> el siguiente formulario.<br>
+			La informaci&oacute;n que proporciones para tu registro ser&aacute; validada por tu Instituci&oacute;n de origen.</td>
+		</tr>
+	</table>
+</div>
+
+<p><em>Los campos marcados con * son obligatorios. </em><br>
+----> Se recomienda usar las versiones más recientes de los navegadores IE, Firefox o Chrome <---- </p>
+	<form id="form1" name="form1" method="post" action="">
+		<input type='hidden' name='honeypot' id='honeypot' value='' />
+		<fieldset style="text-align:center;width:90%;border:2px dashed #255170; border-radius:8px;">
+		<legend style="display:block;font-weight:bold;padding-bottom:1em; text-align:left">Formato de Registro </legend>
+		
+	<div style="width:900px; float:left; text-align:right">
+	
+	<table width="100%" style="font-size:14px;">
+		<tr>
+			<td width="400px"><label for="firstname">Nombre(s)*</label></td><td width="500px" style="text-align:left;"><input name="firstname" type="text" id="firstname"  size="39" required data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true,trim:true,maxLength:250,invalidMessage:'Este campo es requerido',missingMessage:'Este campo es requerido',promptMessage:'Escriba su(s) Nombre(s)<br>como desee que aparezca en su Constancia (obligatorio)'" /></td>
+		</tr>
+		<tr>
+			<td><label for="lastname2">Apellido(s)*</label></td><td width="500px" style="text-align:left;"><input name="lastname" type="text" id="lastname" size="39" required 
+                      <input id="Apellidos" name="Apellidos" type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true,trim:true,maxLength:250,invalidMessage:'Este campo es requerido',missingMessage:'Este campo es requerido',promptMessage:'Escriba su Apellido Paterno y Materno (obligatorio)'" /></td>
+		</tr>
+		<tr>
+			<td><label for="rfc2">RFC</label></td><td width="500px" style="text-align:left;"><input style="text-transform: uppercase" type="text" name="rfc" id="rfc"  size="18" value="" style="color:#CCC" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:false,trim:true,maxLength:250,invalidMessage:'',missingMessage:'',promptMessage:'El RFC debe llevar 4 letras y 4 caracteres numéricos'" /><label for='rfc' id='rfc_error' class='error'></label></td>
+		</tr>
+		<tr>
+			<td><label>Homoclave</label></td><td width="500px" style="text-align:left;"><input size="8" type='text' name='homoclave' id='homoclave' />
+			<label for='rfc' id='homoclave_error' ></label></td>
+		</tr>
+		<tr>
+			<td><label>Sexo*</label></td><td width="500px" style="text-align:left;"><select name="gender" size="1" style="width:200px; line-height: 25px;
+    height: 25px" required>
+          <option value="">-- Seleccione Uno --</option>
+          
+				{% for gender in genders %}
+				
+          <option value="{{ gender.id }}">{{ gender.name|title }}</option>
+          
+				{% endfor %}
+			
+        </select></td>
+		</tr>
+		<tr>
+			<td><label>Institución a la que pertenece*</label></td><td width="500px" style="text-align:left;"><select id='myselect' name='institution' required  style="width:200px; line-height: 25px;
+    height: 25px; font-size:0.9em;" data-dojo-type="dijit.form.FilteringSelect" data-dojo-props="require:true,title:'Institucion',tooltip:'Seleccione el nombre de su Institución de procedencia (obligatorio)'">
+    
+    	    <option selected value="509">Sistema Nacional de Investigadores</option>
+    	    
+<!--
+	    <option value="">-- Seleccione Una --</option>
+				{% for institution in institutions %}
+				<option value="{{ institution.id }}">{{ institution.inst_name }}</option>
+				{% endfor %}
+
+-->				
+
+			</select></td>
+		</tr>
+		<tr>
+			<td><label for="id2">{{ profile.id_number }}</label></td><td width="500px" style="text-align:left;"><input type="text" name="account_num" id="id" size="39" required /></td>
+		</tr>
+		<tr>
+			<td><label for="email3">Correo electrónico institucional*</label></td><td width="500px" style="text-align:left;"><input type="text" name="inst_email" id="email1" class='email'  size='39' required data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:250,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
+		</tr>
+		<tr>
+			<td><label for="email4">Correo electrónico comercial</label>
+	     <em style="font-size:0.7em"><br>
+	      Correo comercial debe  ser diferente al institucional </em></td><td width="500px" style="text-align:left;"><input type="text" name="comm_email" id="email2" class='email' size="39" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:50,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
+		</tr>
+		<tr>
+			<td><label>{{ profile.level_title }}*</label></td><td width="500px" style="text-align:left;"><select name="profile" size="1" required style="width:200px; line-height: 25px;
+    height: 25px">
+    
+    		<option selected value="7">Investigador</option>
+
+<!--
+                <option value="">-- Seleccione Uno --</option>
+                
+				{% for level in profile.levels %}
+				
+                <option value="{{ level.id }}">{{ level.name }}</option>
+                
+				{% endfor %}
+-->
+			
+              </select></td>
+		</tr>
+		<tr>
+			<td><label for="facultad">Dependencia o Facultad*</label></td><td width="500px" style="text-align:left;"><input type="text" name="unit_faculty" id="unit_faculty" size="39"  required /></td>
+		</tr>
+	</table>
+	
+	</div>
+	
+		<div style="text-align:center; clear:both">
+		<p>
+			<label for="yes">Acepta los <a href='terms.pdf' target="_blank">Términos y Condiciones</a> del uso de la cuenta</label>
+			<input type="checkbox" name="accept" id="yes" required/>
+		</p>
+        <div style="text-align:center">
+        <em style="font-size:0.7em">Para continuar por favor escriba las palabras como se encuentran en la imagen de abajo. Si no es posible entender las letras, por favor de click en el ícono "actualizar" localizado a la derecha del cuadro donde se escribe. </em><br/>
+		{{ recaptcha_form|raw }}
+        </div>
+		<p>
+			<input type="submit" name="Registrar" id="Registrar" value="Registar" style="font-size:1.3em;"/>
+			<input type="reset" name="Back" id="Back" value="Limpiar" style="margin-left:10px; font-size:1.3em;" />
+		</p>
+</div>
+	</form>
+		
+		 
+   <div style="float:left; font-size:0.7em"><a href="http://etechwebsite.com/conricyt/conricyt-select/">Regresar a la P&aacute;gina Anterior</a></div>
+   </div>
+{% endblock %}
