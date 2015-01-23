@@ -75,7 +75,7 @@ $('.masterTooltip').hover(function() {
         var title = $(this).attr('title');
         $(this).data('tipText', title).removeAttr('title');
         $('<p class="tooltip"></p>')
-        .text(title)
+        .html(title)
         .appendTo('body')
         .fadeIn(400);
 }, function() {
@@ -90,6 +90,7 @@ $('.masterTooltip').hover(function() {
 });
 
 $('.mostrarIMSS').css("display", "none");
+$('label[for="facultad"] img').css("display", "none");
 
 $('#myselect').change(function() {
 	var inst = $(this).children("option:selected");
@@ -99,9 +100,12 @@ $('#myselect').change(function() {
 		$('.ocultarIMSS').css("display", "none");
 		$('.mostrarIMSS').css("display", "table-row");
 		$('label[for="id2"]').text("Matrícula IMSS*");
-		$('label[for="facultad"]').text("Adscripción*");
+		$('label[for="facultad"] span').text("Adscripción* ");
+		$('label[for="facultad"] img').css("display", "inline");
 		$('label[for="email3"]').text("Correo electrónico personal*");
 		$('label[for="email4"]').text("Correo electrónico institucional");
+		$('#email1').attr("title", "El correo personal debe ser diferente al institucional");
+		$('#email2').attr("title", "El correo institucional debe ser diferente al personal");
 		
 		$('#id').keyup(function() {
 			var cuenta = $(this).val();
@@ -197,9 +201,12 @@ $('#myselect').change(function() {
 		$('.ocultarIMSS').css("display", "table-row");
 		$('.mostrarIMSS').css("display", "none");
 		$('label[for="id2"]').text("Matrícula*");
-		$('label[for="facultad"]').text("Dependencia o facultad*");
+		$('label[for="facultad"] span').text("Dependencia o facultad* ");
+		$('label[for="facultad"] img').css("display", "none");
 		$('label[for="email3"]').text("Correo electrónico institucional*");
 		$('label[for="email4"]').text("Correo electrónico personal");
+		$('#email1').attr("title", "El correo institucional debe ser diferente al personal");
+		$('#email2').attr("title", "El correo personal debe ser diferente al institucional");
 	}
 });
 
@@ -264,7 +271,10 @@ $('#form1').validate({
 		institution: 'Este campo es obligatorio.',
 		account_num: 'Este campo es obligatorio.',
 		comm_email: 'Correo electr&oacute;nico no valido.',
-		inst_email: 'Correo electr&oacute;nico no valido.',
+		inst_email: {
+			required: 'Este campo es obligatorio.',
+			email: 'Correo electr&oacute;nico no valido.'
+		},
 		profile: 'Este campo es obligatorio.',
 		delegacion: 'Este campo es obligatorio.',
 		ceo: 'Este campo es obligatorio.',
@@ -422,7 +432,7 @@ $('#form1').validate({
               </select></td>
 		</tr>
 		<tr class="mostrarIMSS">
-			<td><label for="delegacion">Delegación IMSS*</label></td><td width="500px" style="text-align:left;"><select name="delegacion" id="delegacion" size="1" required style="width:200px; line-height: 25px; height: 25px">
+			<td><label for="delegacion">Delegación IMSS* <img alt="" src="images/qm.png" class='masterTooltip' title="Los usuarios de Nivel Central favor de<br />seleccionar la opción &quot;Oficinas Centrales&quot;.<br /><br />Los usuarios de nómina de mando favor de<br />seleccionar la opción &quot;Mando&quot; (Delegación<br />y Oficinas Centrales)" width="15px" /></label></td><td width="500px" style="text-align:left;"><select name="delegacion" id="delegacion" size="1" required style="width:200px; line-height: 25px; height: 25px">
                 <option value="">-- Seleccione uno --</option>
                 
 				{% for delegacion in delegaciones %}
@@ -434,10 +444,10 @@ $('#form1').validate({
               </select></td>
 		</tr>
 		<tr class="mostrarIMSS">
-			<td><label for="ceo">Clave Est Org*</label></td><td width="500px" style="text-align:left;"><input type="text" name="ceo" id="ceo" size="39"  required /></td>
+			<td><label for="ceo">Clave Est Org/Clave departamental* <img alt="" src="images/qm.png" class='masterTooltip' title="La Clave de Estructura Organizacional o<br />Clave Departamental deberá obtenerla de<br />tu tarjetón de pago del IMSS.<br /><br />Ejemplo: 09NC012520" width="15px" /></label></td><td width="500px" style="text-align:left;"><input type="text" name="ceo" id="ceo" size="39"  required /></td>
 		</tr>
 		<tr>
-			<td><label for="facultad">Dependencia o Facultad*</label></td><td width="500px" style="text-align:left;"><input type="text" name="unit_faculty" id="unit_faculty" class="masterTooltip" size="39" title="Escuela, facultad o dependencia a la que está adscrito" required /></td>
+			<td><label for="facultad"><span>Dependencia o Facultad*</span><img alt="" src="images/qm.png" class="masterTooltip" title="El nombre de su Adscripción deberá<br />obtenerlo de su tarjetón de pago vigente<br />IMSS.<br /><br />Ejemplo: División de Innovación Educativa" width="15px" /></label></td><td width="500px" style="text-align:left;"><input type="text" name="unit_faculty" id="unit_faculty" class="masterTooltip" size="39" title="Escuela, facultad o dependencia a la que está adscrito" required /></td>
 		</tr>
 	</table>
 	
