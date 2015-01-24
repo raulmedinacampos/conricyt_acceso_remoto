@@ -91,9 +91,11 @@ $('.masterTooltip').hover(function() {
 
 $('.mostrarIMSS').css("display", "none");
 $('label[for="facultad"] img').css("display", "none");
+$('.camposOcultos').css("display", "none");
 
 $('#myselect').change(function() {
 	var inst = $(this).children("option:selected");
+	$('.camposOcultos').css("display", "table-row");
 	
 	/* Se valida que sea el IMSS */
 	if(inst.val() == 475) {
@@ -350,7 +352,7 @@ $('#form1').validate({
 		<fieldset style="text-align:center;width:90%;border:2px dashed #255170; border-radius:8px;">
 		<legend style="display:block;font-weight:bold;padding-bottom:1em; text-align:left">Formato de Registro </legend>
 		
-	<div style="width:900px; float:left; text-align:right">
+	<div style="width:850px; float:left; text-align:right">
 	
 	<table width="100%" style="font-size:14px;">
 		<tr>
@@ -371,24 +373,24 @@ $('#form1').validate({
 				{% endfor %}
 			</select></td>
 		</tr>
-		<tr class="ocultarIMSS">
+		<tr class="ocultarIMSS camposOcultos">
 			<td width="400px"><label for="firstname">Tipo de usuario</label></td><td width="500px" style="text-align:left;"><select name="perfil" id="perfil" size="1" style="width:200px; line-height: 25px; height: 25px" required="required">
 			<option value="">-- Seleccione Uno --</option>
 			<option value="es">Estudiante</option>
 			<option value="ac">Académico o administrativo</option>
 			</select></td>
 		</tr>
-		<tr>
+		<tr class="camposOcultos">
 			<td><label for="id2">Número de cuenta</label></td><td width="500px" style="text-align:left;"><input type="text" name="account_num" id="id" size="39" required /></td>
 		</tr>
-		<tr>
+		<tr class="camposOcultos">
 			<td><label for="rfc2">RFC</label></td><td width="500px" style="text-align:left;"><input style="text-transform: uppercase" type="text" name="rfc" id="rfc"  size="18" value="" style="color:#CCC" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:false,trim:true,maxLength:250,invalidMessage:'',missingMessage:'',promptMessage:'El RFC debe llevar 4 letras y 4 caracteres numéricos'" /><label for='rfc' id='rfc_error' class='error'></label></td>
 		</tr>
-		<tr>
+		<tr class="camposOcultos">
 			<td><label>Homoclave</label></td><td width="500px" style="text-align:left;"><input size="8" type='text' name='homoclave' id='homoclave' />
 			<label for='rfc' id='homoclave_error' ></label></td>
 		</tr>
-		<tr>
+		<tr class="camposOcultos">
 			<td><label>Entidad federativa*</label></td><td width="500px" style="text-align:left;"><select name="entidad" id="entidad" size="1" style="width:200px; line-height: 25px; height: 25px" required>
           <option value="">-- Seleccione una --</option>
           
@@ -400,7 +402,7 @@ $('#form1').validate({
 			
         </select></td>
 		</tr>
-		<tr>
+		<tr class="camposOcultos">
 			<td><label>Sexo*</label></td><td width="500px" style="text-align:left;"><select name="gender" id="gender" size="1" style="width:200px; line-height: 25px;
     height: 25px" required>
           <option value="">-- Seleccione uno --</option>
@@ -413,13 +415,13 @@ $('#form1').validate({
 			
         </select></td>
 		</tr>
-		<tr>
-		</tr>
+		<tr class="camposOcultos">
 			<td><label for="email3">Correo electrónico institucional*</label></td><td width="500px" style="text-align:left;"><input type="text" name="inst_email" id="email1" class='email masterTooltip' size="39" title="El correo personal debe ser diferente al institucional" required data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:250,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
-		<tr>
+		</tr>
+		<tr class="camposOcultos">
 			<td><label for="email4">Correo electrónico personal</label></td><td width="500px" style="text-align:left;"><input type="text" name="comm_email" id="email2" class='email masterTooltip' size="39" title="El correo personal debe ser diferente al institucional" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:50,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
 		</tr>
-		<tr class="ocultarIMSS">
+		<tr class="ocultarIMSS camposOcultos">
 			<td><label for="perfil">Perfil*</label></td><td width="500px" style="text-align:left;"><select name="profile" id="profile" size="1" required style="width:200px; line-height: 25px; height: 25px">
                 <option value="">-- Seleccione uno --</option>
                 
@@ -446,14 +448,14 @@ $('#form1').validate({
 		<tr class="mostrarIMSS">
 			<td><label for="ceo">Clave Est Org/Clave departamental* <img alt="" src="images/qm.png" class='masterTooltip' title="La Clave de Estructura Organizacional o<br />Clave Departamental deberá obtenerla de<br />tu tarjetón de pago del IMSS.<br /><br />Ejemplo: 09NC012520" width="15px" /></label></td><td width="500px" style="text-align:left;"><input type="text" name="ceo" id="ceo" size="39"  required /></td>
 		</tr>
-		<tr>
-			<td><label for="facultad"><span>Dependencia o Facultad*</span><img alt="" src="images/qm.png" class="masterTooltip" title="El nombre de su Adscripción deberá<br />obtenerlo de su tarjetón de pago vigente<br />IMSS.<br /><br />Ejemplo: División de Innovación Educativa" width="15px" /></label></td><td width="500px" style="text-align:left;"><input type="text" name="unit_faculty" id="unit_faculty" class="masterTooltip" size="39" title="Escuela, facultad o dependencia a la que está adscrito" required /></td>
+		<tr class="camposOcultos">
+			<td><label for="facultad"><span>Dependencia o Facultad* </span><img alt="" src="images/qm.png" class="masterTooltip" title="El nombre de su Adscripción deberá<br />obtenerlo de su tarjetón de pago vigente<br />IMSS.<br /><br />Ejemplo: División de Innovación Educativa" width="15px" /></label></td><td width="500px" style="text-align:left;"><input type="text" name="unit_faculty" id="unit_faculty" class="masterTooltip" size="39" title="Escuela, facultad o dependencia a la que está adscrito" required /></td>
 		</tr>
 	</table>
 	
 	</div>
 	
-		<div style="text-align:center; clear:both">
+	  <div style="text-align:center; clear:both" class="camposOcultos">
 		<p>
 			<label for="yes">Acepta los <a href='terms.pdf' target="_blank">Términos y Condiciones</a> del uso de la cuenta</label>
 			<input type="checkbox" name="accept" id="yes" required/>
@@ -467,7 +469,7 @@ $('#form1').validate({
 			<input type="submit" name="Registrar" id="Registrar" value="Registar" style="font-size:1.3em;"/>
 			<input type="reset" name="Back" id="Back" value="Limpiar" style="margin-left:10px; font-size:1.3em;" />
 		</p>
-</div>
+	  </div>
 	</form>
 		
 		 

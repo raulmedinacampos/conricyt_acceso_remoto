@@ -21,8 +21,9 @@
 }
 .content {
 
-	padding: 10px 0;
-
+	border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+    box-shadow: 0 0 20px #000000;
 }
 
 
@@ -92,7 +93,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
 .error {color:red; float;left; width:200px;}
 #recaptcha_area, #recaptcha_table {
-        margin-left: 250px;
+	margin: auto;
 }
 
 input { 
