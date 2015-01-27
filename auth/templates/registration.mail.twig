@@ -9,10 +9,15 @@
 
 <div style="text-align:left; font-size:0.9em" >
 <h1>Servicio de Acceso Remoto - CONRICYT</h1>
-<h3><strong>Apreciable {{ user.firstname }} {{ user.lastname }}:</strong></h3>
-<p style="text-align: justify">Muchas  gracias por realizar tu registro en l&#237;nea al Servicio de Acceso Remoto a los  Recursos Electr&#243;nicos del Consorcio Nacional de Recursos de 
-Informaci&#243;n  Cient&#237;fica y Tecnol&#243;gica (CONRICYT).</p>
+<h3><strong>Estimado(a) {{ user.firstname }} {{ user.lastname1 }} {{ user.lastname2 }}:</strong></h3>
+<h3><strong>{{ user.Institution.inst_name }}</strong></h3>
+<p style="text-align: justify">Tu registro en l&#237;nea al Servicio de Acceso Remoto a los Recursos de 
+Informaci&#243;n  Cient&#237;fica y Tecnol&#243;gica del CONRICYT se ha completado con &#233;xito.</p>
+{% if user.Institution.id == 475 %}
+<p style="text-align: justify; color: #FF0000">Ten presente que en un plazo de 48 horas h&#225;biles posteriores a tu registro, tu clave de acceso remoto quedar&#225; activada.</p>
+{% else %}
 <p style="text-align: justify">Recuerda que en un plazo de 14 d&#237;as  naturales recibir&#225;s al correo electr&#243;nico - {{ user.inst_email }} -; la clave de acceso remoto activada, mediante  la cual podr&#225;s acceder a los recursos electr&#243;nicos asignados a la Instituci&#243;n a  la que perteneces por el CONRICYT*, te sugerimos estar pendiente.</p>
+{% endif %}
 <h2>
   <strong>Informaci&#243;n  de Registro:</strong></h2>
 <table border="1" style="margin-left:0px; padding:none" cellpadding="3">
@@ -20,22 +25,18 @@ Informaci&#243;n  Cient&#237;fica y Tecnol&#243;gica (CONRICYT).</p>
     <td colspan="2" valign="top"><p align="center"><img src="http://conricyt.mx/conremoto/auth/conricyt2.png" /><strong>Servicio de Acceso Remoto</strong></p></td>
   </tr>
   <tr>
-    <td><p align="right">RFC:</p></td>
-    <td><p>{{ user.rfc }}</p></td>
-  </tr>
-  <tr>
-    <td><p align="right">Nombre completo:</p></td>
-    <td><p>{{ user.firstname }} {{ user.lastname }}</p></td>
-  </tr>
-  <tr>
-    <td><p align="right">Nombre de la Instituci&#243;n:</p></td>
-    <td><p>{{ user.Institution.inst_name }}</p></td>
-  </tr>
-  <tr>
     <td><p align="right">Fecha de registro:</p></td>
     <td><p> {{"now"|date('d/m/Y')}} </p></td>
   </tr>
-</table>
+  <tr>
+    <td><p align="right">Usuario:</p></td>
+    <td><p>{{ user.username }}</p></td>
+  </tr>
+  <tr>
+    <td><p align="right">Contrase&#241;a:</p></td>
+    <td><p>{{ user.password }}</p></td>
+  </tr>
+  </table>
 <table border="0" cellspacing="3" cellpadding="0" width="100%">
   <tr>
     <td valign="top"></td>
@@ -44,11 +45,16 @@ Informaci&#243;n  Cient&#237;fica y Tecnol&#243;gica (CONRICYT).</p>
     <td valign="top"></td>
   </tr>
 </table>
+{% if user.Institution.id == 475 %}
 <p style="text-align: justify"><strong>Importante:</strong><br />
+  En caso de no poder acceder a los recursos electr&#243;nicos mediante tu clave, por favor env&#237;a un correo electr&#243;nico a la direcci&#243;n: <a href="mailto:consorcio@conacyt.mx">consorcio@conacyt.mx</a> para solucionar cualquier problema al respecto. </p>
+{% else %}
+  <p style="text-align: justify"><strong>Importante:</strong><br />
   Si en un plazo de 14 d&#237;as naturales a  partir de tu fecha de registro no recibes tu informaci&#243;n de acceso o no puedes  ingresar a los recursos electr&#243;nicos mediante tu clave, por favor env&#237;a un  correo electr&#243;nico a la direcci&#243;n: <a href="mailto:consorcio@conacyt.mx">consorcio@conacyt.mx</a> para solucionar cualquier  problema al respecto. </p>
 <p align="center" style="font-size:0.8em">*Si deseas conocer cu&#225;les son los  recursos electr&#243;nicos a los que tu Instituci&#243;n tiene acceso por parte del  CONRICYT, 
 <br>
 puedes consultarlos en <a href="http://www.conricyt.mx/acervo-editorial/recursos-por-institucion.htm">http://www.conricyt.mx/acervo-editorial/recursos-por-institucion.htm</a></p>
+{% endif %}
 
 <p style="text-align: justify">
 <strong>Aviso de Confidencialidad</strong>

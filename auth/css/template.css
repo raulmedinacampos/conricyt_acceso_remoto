@@ -90,3 +90,83 @@
     padding-top: 0;
     text-align: center;
 }
+
+
+/* Estilos del formulario */
+#form1 fieldset {
+	width: 90%;
+	background-color: #E8E9E8;
+    border: none;
+    border-radius: 16px;
+}
+
+#form1 label {
+	font-weight: normal;
+}
+
+.instrucciones {
+    height: 72px;
+}
+
+.instrucciones > h2{
+	margin: 10px 0;
+	float: left;
+	font-family: Frutiger,"Frutiger Linotype",Univers,Calibri,"Gill Sans","Gill Sans MT","Myriad Pro",Myriad,"DejaVu Sans Condensed","Liberation Sans","Nimbus Sans L",Tahoma,Geneva,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: #0A2344;
+	font-size: 32px;
+}
+
+.instrucciones > p {
+    float: left;
+    margin: 8px 0 0 16px;
+    padding-left: 16px;
+    border-left: 2px solid #0a2344;
+    text-align: left;
+}
+
+.instrucciones-captcha p img {
+    vertical-align: text-bottom;
+}
+
+td.notas {
+	font-size: 11px;
+	text-align: left;
+	
+}
+
+#yes {
+    vertical-align: middle;
+}
+
+.instrucciones-captcha {
+	display: inline-flex;
+    margin: 20px 0 10px;
+}
+
+.instrucciones-captcha > p {
+    float: left;
+    width: 255px;
+    margin-right: 50px;
+    font-size: 11px;
+    text-align: right;
+    line-height: 20px;
+}
+
+#Registrar, #Back {
+    padding: 1px 20px 25px;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#Back {
+	margin-right: 25px;
+	background-color: #5AC5C8;
+}
+
+#Registrar {
+	margin-left: 25px;
+	background-color: #0A2344;
+}

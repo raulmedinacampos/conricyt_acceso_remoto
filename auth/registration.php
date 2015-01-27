@@ -75,17 +75,17 @@
 <div id="terminos">
 <div>
 <p class="modal_close"><a href="#">Cerrar</a></p>
-<p align="center"><strong>TÉRMINOS Y CONDICIONES DE USO PARA LA CUENTA DE ACCESO REMOTO A LOS RECURSOS<br />
-ELECTRÓNICOS DEL CONRICYT</strong></p>
-<p>Los recursos electrónicos de información científica y tecnológica, asignados a su institución por medio del CONRICYT tienen la finalidad de apoyar las tareas sustantivas de las comunidades académicas y científicas tales como la: docencia e investigación, por lo que su uso está destinado exclusivamente para fines académicos.</p>
-<p>Reconozco que el uso de mi cuenta de acceso remoto es personal, privada e intransferible, por lo que en ningún caso podré prestarla a ningún otro usuario, incluyendo cualquier otro miembro de la comunidad universitaria a la que pertenezco.</p>
+<p align="center"><strong>TÉRMINOS Y CONDICIONES DE USO DE LA CLAVE DE ACCESO REMOTO A LOS<br />
+RECURSOS DE INFORMACIÓN CIENTÍFICA Y TECNOLÓGICA DEL CONRICYT</strong></p>
+<p>Los recursos electrónicos de información científica y tecnológica, asignados a tu institución a través del CONRICYT tienen como finalidad apoyar las tareas sustantivas de las comunidades académicas y científicas tales como la: docencia e investigación, por lo que su uso está destinado exclusivamente para fines académicos.</p>
+<p>Reconozco que el uso de <strong>mi Clave de Acceso Remoto es personal, privada e intransferible y que el periodo de vigencia es de un año</strong>, por lo que en ningún caso podré prestarla a ningún otro usuario, incluyendo cualquier otro miembro de la comunidad académica a la que pertenezco.</p>
 <p>Los contratos contraídos con las casas editoras e integradoras prohíben que los recursos electrónicos sean utilizados para los siguientes propósitos:</p>
-<p>En ningún caso podré modificar, adaptar, transformar, traducir ni crear o vender ningún trabajo derivado en cualquier medio, basado en los recursos electrónicos o que incluya tales materiales; tampoco podré utilizar de otro modo dichos materiales de manera tal que viole los derechos de autor u otros derechos de propiedad exclusiva sobre ellos.</p>
+<p>En ningún caso, podré modificar, adaptar, transformar, traducir ni crear o vender ningún trabajo derivado en cualquier medio, basado en los recursos electrónicos o que incluya tales materiales; tampoco podré utilizar de otro modo dichos materiales de manera tal que viole los derechos de autor u otros derechos de propiedad exclusiva sobre ellos.</p>
 <p>No podré eliminar, ocultar ni modificar de ningún modo los avisos de derechos de autor, marca comercial u otros avisos de derechos de propiedad exclusiva, atribuciones de autoría ni exclusiones de responsabilidad incluidos por los editores y autores.</p>
 <p>No me está permitido la descarga masiva y/o sistemática de documentos.</p>
 <p>No me está permitida la reproducción sustancial o sistemática ni el suministro o distribución sistemáticos de copias únicas o múltiples en cualquier forma a personas que no sean usuarios autorizados.</p>
 <p>No me está permitida la distribución de cualquier parte de los recursos en red electrónica.</p>
-<p>Reconozco y Acepto que estoy enterado(a) que, la violación de cualquiera de las prohibiciones señaladas párrafos arriba tendrá como sanción la suspensión inmediata e irrevocable de mi clave de acceso remoto, sin que pueda ser sujeto(a) a una renovación de la misma. La suspensión inmediata e irrevocable de mi clave de acceso remoto será notificada a mi Institución de adscripción.</p>
+<p><strong>Reconozco y Acepto que estoy enterado(a) que, la violación de cualquiera de las prohibiciones señaladas párrafos arriba tendrá como sanción la suspensión inmediata e irrevocable de mi clave de acceso remoto, sin que pueda ser sujeto(a) a una renovación de la misma. La suspensión inmediata e irrevocable de mi clave de acceso remoto será notificada a mi Institución de adscripción.</strong></p>
 </div>
 </div>
 <?php
@@ -125,7 +125,18 @@ if(isset($_GET['profile'])){
 		
 		//print_r($_SESSION);echo ' '.$_POST['setunique'];exit();
 
-		$user->save();
+		$id = $user->save();
+		
+		if($_POST['institution'] == 475) {
+			$user = new User($pdo, $id);
+			if($user->generateCredentials()){
+				$user->save();
+				
+				$preset_user = new PresetUsers($pdo, $user);
+				$user->username = $preset_user->username;
+				$user->password = $preset_user->password;
+			}
+		}
 		
 		$email = new Email($twig, 
 			array($user->inst_email), 
@@ -136,7 +147,7 @@ if(isset($_GET['profile'])){
 			)
 		);
 
-		//$email->send();
+		$email->send();
 
 		echo $twig->render('registration_finished.twig', array());
 

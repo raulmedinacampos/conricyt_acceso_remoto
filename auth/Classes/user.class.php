@@ -123,6 +123,7 @@ class User {
 		$this->active = true;
 		$this->rejected = false;
 		$this->suspended = false;
+		
 		//$next->Used($this->pdo);
 		return array(
 			'username' => $next->username,
@@ -187,10 +188,12 @@ class User {
 
 	public function save()
 	{
-		try {			
+		try {
+			$accion = "";
 			$stmt = $this->pdo->prepare("Select * FROM users WHERE id = :id");
 			$stmt->execute(array(':id' => $this->id));
 			if($stmt->fetchColumn() > 0){
+				$accion = "u";
 				$query = $this->pdo->prepare("UPDATE users set
 					firstname = :firstname,
 			 		lastname1 = :lastname1,
@@ -216,6 +219,7 @@ class User {
 			 		WHERE id = :id
 				");
 			} else {
+				$accion = "i";
 				$stmt = $this->pdo->prepare("Select * FROM users WHERE inst_email = :inst_email");
 				$stmt->execute(array(':inst_email' => $this->inst_email));
 				if($stmt->fetchColumn() == 0){
@@ -284,7 +288,11 @@ class User {
 			print_r('save: ' . $e->getMessage());
 			die;
 		}
-		return true;
+		if($accion == "i") {
+			return $this->pdo->lastInsertId();
+		} else {
+			return true;
+		}
 	}
 
 	static function find($pdo, $args = array()){
