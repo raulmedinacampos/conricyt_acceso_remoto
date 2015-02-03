@@ -45,7 +45,7 @@ class PresetUsers{
 		}
 	}
 	
-	// Method added by Raul Medina. Insert register into preset_users table
+	// Metodo agregado por Raul Medina. Inserta registro en la tabla preset_user
 	public function Insert($pdo, $user)
 	{
 		$inserted = false;
@@ -68,7 +68,7 @@ class PresetUsers{
 		$stmt->execute(array($user->institution));
 		$used = $stmt->fetch();
 		
-		// If user is from IMSS then username is the same than account number
+		// Si el usuario es del IMSS el usuario es el mismo que la cuenta
 		if($user->institution == 475) {
 			$username = $user->account_num;
 			$extra = "";

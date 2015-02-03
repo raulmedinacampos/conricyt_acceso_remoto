@@ -72,6 +72,11 @@ $("input[name=inst_email], input[name=comm_email]").blur(function(){
 	});
 });
 
+//Inhabilita la opcion de copiar y pegar en la confirmacion del correo
+$("#email4").bind("cut copy paste",function(e) {
+	e.preventDefault();
+});
+
 // Función para mostrar tooltips de los campos del formulario.
 // Asignar clase masterTooltip y contenido del tooltip en title
 $('.masterTooltip').hover(function() {
@@ -124,6 +129,7 @@ $('#myselect').change(function() {
 						if(datos.length > 0) {
 							$.each(datos, function(index, d) {
 								if(d.firstname) {
+									$('#precarga').val(cuenta);
 									$('#firstname').val(d.firstname);
 									$('#firstname').prop("disabled", true);
 								}
@@ -166,6 +172,7 @@ $('#myselect').change(function() {
 								if(d.comm_email) {
 									$('#email2').val(d.comm_email);
 									$('#email2').prop("disabled", true);
+									$('#email4').prop("disabled", true);
 								}
 								
 								if(d.deleg_imss) {
@@ -205,6 +212,7 @@ $('#myselect').change(function() {
 		$('#gender').prop("disabled", false);
 		$('#email1').prop("disabled", false);
 		$('#email2').prop("disabled", false);
+		$('#email4').prop("disabled", false);
 		$('#delegacion').prop("disabled", false);
 		$('#ceo').prop("disabled", false);
 		$('#unit_faculty').prop("disabled", false);
@@ -283,6 +291,11 @@ $('#id').blur(function() {
 });
 
 $('#form1').validate({
+	rules: {
+		conf_comm_email: {
+			equalTo: '#email2'
+		}
+	},
 	messages: {
 		perfil: 'Campo obligatorio.',
 		firstname: 'Campo obligatorio.',
@@ -295,6 +308,9 @@ $('#form1').validate({
 		comm_email: {
 			required: 'Campo obligatorio.',
 			email: 'Correo electr&oacute;nico no valido.'
+		},
+		conf_comm_email: {
+			equalTo: 'El correo no coincide'
 		},
 		inst_email: 'Correo electr&oacute;nico no validooo.',
 		profile: 'Campo obligatorio.',
@@ -355,7 +371,7 @@ $('#form1').validate({
 <div style="text-align:center; margin-top:20px; margin-left:40px">
 	<div class="instrucciones">
 		<h2>Formato de registro</h2>
-		<p>Para obtener tu clave de acceso remoto llena cuidadosamente el siguiente formulario.<br />Es importante que proporciones y verifiques tus datos antes de finalizar, puesto que serán<br />validados por tu Instituci&oacute;n de origen.</p>
+		<p>Para obtener tu clave de acceso remoto llena cuidadosamente el siguiente formulario.<br />Es importante que proporciones y verifiques tus datos antes de finalizar, puesto que serán<br />validados por tu instituci&oacute;n de procedencia.</p>
 	</div>
 
 <form id="form1" name="form1" method="post" action="">
@@ -367,7 +383,7 @@ $('#form1').validate({
 	<table width="100%" style="font-size:14px;">
 		<tr>
 			<td>&nbsp;</td>
-			<td class="notas">Los campos marcados con * son obligatorios. Asimismo, se recomienda<br /> que uses las versiones más recientes de los navegadores IE, Firefox, Safari o Chrome</td>
+			<td class="notas">Los campos marcados con * son obligatorios. Asimismo, se recomienda<br /> que uses las versiones más recientes de los navegadores Internet Explorer,<br />Firefox, Safari o Chrome</td>
 		</tr>
 		<tr>
 			<td width="400px"><label for="firstname">Nombre(s)*</label></td><td width="500px" style="text-align:left;"><input name="firstname" type="text" id="firstname" size="39" required data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true,trim:true,maxLength:250,invalidMessage:'Este campo es requerido',missingMessage:'Este campo es requerido',promptMessage:'Escriba su(s) Nombre(s)<br>como desee que aparezca en su Constancia (obligatorio)'" /></td>
@@ -376,14 +392,14 @@ $('#form1').validate({
 			<td valign="top"><label for="lastname1">Apellido paterno*</label></td>
 			<td width="500px" style="text-align:left;">
 				<input name="lastname1" type="text" id="lastname1" size="39" required type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true,trim:true,maxLength:250,invalidMessage:'Este campo es requerido',missingMessage:'Este campo es requerido',promptMessage:'Escriba su Apellido Paterno y Materno (obligatorio)'" />
-				<label style="display: table-cell;"><input type="checkbox" id="chkApPaterno" name="chkApPaterno" style="vertical-align: middle;" /> Sin apellido paterno</label>
+				<label style="display: table-cell;"><input type="checkbox" id="chkApPaterno" name="chkApPaterno" value="1" style="vertical-align: middle;" /> Sin apellido paterno</label>
 			</td>
 		</tr>
 		<tr>
 			<td valign="top"><label for="lastname2">Apellido materno*</label></td>
 			<td width="500px" style="text-align:left;">
 				<input name="lastname2" type="text" id="lastname2" size="39" required type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true,trim:true,maxLength:250,invalidMessage:'Este campo es requerido',missingMessage:'Este campo es requerido',promptMessage:'Escriba su Apellido Paterno y Materno (obligatorio)'" />
-				<label style="display: table-cell;"><input type="checkbox" id="chkApMaterno" name="chkApMaterno" style="vertical-align: middle;" /> Sin apellido materno</label>
+				<label style="display: table-cell;"><input type="checkbox" id="chkApMaterno" name="chkApMaterno" value="1" style="vertical-align: middle;" /> Sin apellido materno</label>
 			</td>
 		</tr>
 		<tr>
@@ -440,10 +456,13 @@ $('#form1').validate({
         </select></td>
 		</tr>
 		<tr class="camposOcultos">
-			<td><label for="email4">Correo electrónico personal*</label></td><td width="500px" style="text-align:left;"><input type="text" name="comm_email" id="email2" class='email masterTooltip' size="39" title="El correo personal debe ser diferente al institucional" required data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:50,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
+			<td><label for="email2">Correo electrónico personal*</label></td><td width="500px" style="text-align:left;"><input type="text" name="comm_email" id="email2" class='email masterTooltip' size="39" title="El correo personal debe ser diferente al institucional" required data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:50,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
 		</tr>
 		<tr class="camposOcultos">
-			<td><label for="email3">Correo electrónico institucional</label></td><td width="500px" style="text-align:left;"><input type="text" name="inst_email" id="email1" class='email masterTooltip' size="39" title="El correo institucional debe ser diferente al personal" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:250,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
+			<td><label for="email4">Confirmar correo electrónico*</label></td><td width="500px" style="text-align:left;"><input type="text" name="conf_comm_email" id="email4" class='email' size="39" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:50,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
+		</tr>
+		<tr class="camposOcultos">
+			<td><label for="email1">Correo electrónico institucional</label></td><td width="500px" style="text-align:left;"><input type="text" name="inst_email" id="email1" class='email masterTooltip' size="39" title="El correo institucional debe ser diferente al personal" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="validator:dojox.validate.isEmailAddress,required:true,trim:true,maxLength:250,invalidMessage:'Dirección de correo no valida',missingMessage:'Este campo es requerido',promptMessage:'Ingrese su dirección de<br>correo electrónico'" /></td>
 		</tr>
 		<tr class="ocultarIMSS camposOcultos">
 			<td><label for="perfil">Perfil*</label></td><td width="500px" style="text-align:left;"><select name="profile" id="profile" size="1" required style="width:200px; line-height: 25px; height: 25px">
@@ -481,18 +500,19 @@ $('#form1').validate({
 	
 	  <div class="div-terminos camposOcultos">
 		<p>
-			<label for="yes">Acepta los <a href='terms.pdf' target="_blank">Términos y Condiciones</a> del uso de la cuenta</label>
+			<label for="yes">Acepto los <a href='terms.pdf' target="_blank">Términos y Condiciones</a> del uso de la cuenta</label>
 			<input type="checkbox" name="accept" id="yes" required/>
 		</p>
 	  </div>
 	  </fieldset>
 	  <div style="text-align:center; clear:both" class="div-captcha camposOcultos">
         <div class="instrucciones-captcha">
-        <p>Para continuar, escribe las palabras como se encuentran en la imagen. Si el texto de la imagen no es legible, da clic sobre el ícono "actualizar" <img src="images/refresh.png" width="15" /></p>
+        <p>Para continuar escribe las palabras como se encuentran en la imagen. Si el texto de la imagen no es legible da clic sobre el ícono "actualizar" <img src="images/refresh.png" width="15" /></p>
 		{{ recaptcha_form|raw }}
         </div>
 		<p>
 			<input type="hidden" name="setunique" id="setunique" value="{{ uniqueid }}" />
+			<input type="hidden" name="precarga" id="precarga" value="" />
 			<input type="reset" name="Back" id="Back" value="Limpiar" style="margin-left:10px; font-size:1.3em;" />
 			<input type="submit" name="Registrar" id="Registrar" value="Registrar" />
 			</p>

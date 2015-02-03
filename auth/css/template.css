@@ -91,6 +91,18 @@
     text-align: center;
 }
 
+h2 {
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+}
+
+a {
+	color: #3A77D5;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #002147;
+}
 
 /* Estilos del formulario */
 #form1 fieldset {
@@ -156,17 +168,52 @@ td.notas {
     padding: 1px 20px 25px;
     border: none;
     border-radius: 10px;
+	background-color: #0A2344;
     color: #FFFFFF;
     font-size: 16px;
     cursor: pointer;
 }
 
+#Registrar:hover, #Back:hover {
+	background-color: #5AC5C8;
+}
+
 #Back {
 	margin-right: 25px;
-	background-color: #5AC5C8;
 }
 
 #Registrar {
 	margin-left: 25px;
-	background-color: #0A2344;
+}
+
+/* Estilos de la pantalla de confirmación */
+img.confirmacion {
+	display: block;
+	margin: 10px auto 0;
+}
+
+.aviso { 
+	position: relative;
+	padding: 10px;
+	margin: 25px auto;
+	width: 470px; 
+	line-height: 20px;
+	color: #FFFFFF;
+	background-color: #999999;
+	border-radius: 20px;
+}
+
+.boton_pagina {
+	position: relative;
+	float: right;
+	width: 153px;
+	height: 31px;
+	background-image: url("../images/boton1.png");
+	cursor: pointer;
+	margin-right: 40px;
+}
+	
+.boton_pagina:hover {
+	background-image: url("../images/boton2.png");
+	-webkit-transition: 0.15s;
 }

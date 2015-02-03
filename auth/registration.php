@@ -1,3 +1,8 @@
+<?php
+session_start();
+error_reporting(0);
+require_once('config.php');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -89,11 +94,6 @@ RECURSOS DE INFORMACIÓN CIENTÍFICA Y TECNOLÓGICA DEL CONRICYT</strong></p>
 </div>
 </div>
 <?php
-session_start();
-error_reporting(0);
-require_once('config.php');
-
-
 if(isset($_GET['profile'])){
 	if(!$_POST['setunique'] || $_POST['setunique'] != $_SESSION['checkUnique']) {
 		unset($_SESSION['checkUnique']);
@@ -107,8 +107,8 @@ if(isset($_GET['profile'])){
 			$pdo,
 			false,
 			trim($_POST['firstname']),
-			trim($_POST['lastname1']),
-			trim($_POST['lastname2']),
+			(!$_POST['chkApPaterno']) ? trim($_POST['lastname1']) : "",
+			(!$_POST['chkApMaterno']) ? trim($_POST['lastname2']) : "",
 			$_POST['rfc'].$_POST['homoclave'],
 			(int)$_POST['entidad'],
 			(int)$_POST['gender'],
@@ -123,11 +123,17 @@ if(isset($_GET['profile'])){
 			($_POST['institution'] != 475 ? ($_POST['perfil'] == 'es' ? 1 : 2) : 3)
 		);
 		
+		if($_POST['precarga']) {
+			$precarga = true;
+		} else {
+			$precarga = false;
+		}
+				
 		//print_r($_SESSION);echo ' '.$_POST['setunique'];exit();
-
+		
 		$id = $user->save();
 		
-		if($_POST['institution'] == 475) {
+		//if($_POST['institution'] == 475) {
 			$user = new User($pdo, $id);
 			if($user->generateCredentials()){
 				$user->save();
@@ -136,47 +142,65 @@ if(isset($_GET['profile'])){
 				$user->username = $preset_user->username;
 				$user->password = $preset_user->password;
 			}
-		}
+		//}
 		
-		$email = new Email($twig, 
-			array($user->inst_email), 
-			'consorcio@conacyt.mx', 
-			'registration.mail.twig',
-			array(
-				'user' => $user
-			)
-		);
+		if($precarga) {
+			$email = new Email($twig, 
+				array($user->comm_email), 
+				'consorcio@conacyt.mx', 
+				'registration.mail_precarga.twig',
+				array(
+					'user' => $user
+				)
+			);
+		} else {
+			$email = new Email($twig,
+					array($user->comm_email),
+					'consorcio@conacyt.mx',
+					'registration.mail.twig',
+					array(
+							'user' => $user
+					)
+			);
+		}
 
-		$email->send();
+		//$email->send();
+		
+		if($precarga) {
+			if($user->inst_email) {
+				$email = new Email($twig,
+						array($user->inst_email),
+						'consorcio@conacyt.mx',
+						'registration.mail_precarga.twig',
+						array(
+								'user' => $user
+						)
+				);
+				
+				//$email->send();
+			}
+		} else {
+			if($user->inst_email) {
+				$email = new Email($twig,
+						array($user->inst_email),
+						'consorcio@conacyt.mx',
+						'registration.mail.twig',
+						array(
+								'user' => $user
+						)
+				);
+			
+				//$email->send();
+			}
+		}
 
-		echo $twig->render('registration_finished.twig', array());
+		if($precarga) {
+			echo $twig->render('registration_finished_precarga.twig', array('user' => $user));
+		} else {
+			echo $twig->render('registration_finished.twig', array('user' => $user));
+		}
 
 	} else {
-		/*switch($_GET['profile']){
-			case 'es':
-				$profile = array(
-					'title' => "Estudiante",
-					'id_number' => "Matricula/ No. de Cuenta*",
-					'level_title' => "Nivel Escolar",
-					'levels' => $pdo
-						->query("SELECT * FROM level WHERE role = 1")
-						->fetchAll()
-					);
-				break;
-			case 'ac':
-				$profile = array(
-					'title' => "Académico o Administrativo",
-					'id_number' => "No. de Empleado/ No. Económico*",
-					'level_title' => "Perfil",
-					'levels' => $pdo
-						->query("SELECT * FROM level WHERE role = 2")
-						->fetchAll()
-					);
-				break;
-			default:
-				$profile = false;
-				break;
-		}*/
 		$profile = true;
 		if((bool)$profile){
 			$institutions = $pdo->query('SELECT * FROM inst WHERE status=1 ORDER BY inst_name ASC')->fetchAll();
@@ -193,7 +217,6 @@ if(isset($_GET['profile'])){
 				'uniqueid' => $uniqueID
 			));
 		} else {header('HTTP/1.0 403 Forbidden');}
-
 	}
 } elseif (isset($_GET['user'])){
 	if($_GET['user'] == 'all'){

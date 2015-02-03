@@ -57,15 +57,18 @@ class User {
 		$excepciones = array('de', 'la', 'de la', 'del', 'y');
 		$cadena = trim($cadena);
 		$partes = explode(" ", $cadena);
+		$encoding = 'UTF-8';
 			
 		for($i=0; $i<sizeof($partes); $i++) {
-			$partes[$i] = ucfirst(strtolower(trim($partes[$i])));
+			$firstChar = mb_substr($partes[$i], 0, 1, $encoding);
+			$then = mb_substr($partes[$i], 1, mb_strlen($partes[$i], $encoding)-1, $encoding);
+			$partes[$i] = mb_strtoupper($firstChar, $encoding) . mb_strtolower($then, $encoding);
 		}
 			
 		for($i=0; $i<sizeof($partes); $i++) {
 			for($j=0; $j<sizeof($excepciones); $j++) {
-				if(strtolower($partes[$i]) == $excepciones[$j]) {
-					$partes[$i] = strtolower($partes[$i]);
+				if(mb_strtolower($partes[$i], $encoding) == $excepciones[$j]) {
+					$partes[$i] = mb_strtolower($partes[$i], $encoding);
 				}
 			}
 		}
@@ -220,8 +223,8 @@ class User {
 				");
 			} else {
 				$accion = "i";
-				$stmt = $this->pdo->prepare("Select * FROM users WHERE inst_email = :inst_email");
-				$stmt->execute(array(':inst_email' => $this->inst_email));
+				$stmt = $this->pdo->prepare("Select * FROM users WHERE comm_email = :comm_email");
+				$stmt->execute(array(':comm_email' => $this->comm_email));
 				if($stmt->fetchColumn() == 0){
 					$query = $this->pdo->prepare("INSERT INTO users VALUES(
 						:id,
