@@ -123,7 +123,7 @@ class User {
 		}
 		//$this->presetuser_id = $next->id;
 		$this->presetuser_id = $next->Insert($this->pdo, $this);
-		$this->active = true;
+		$this->active = false;
 		$this->rejected = false;
 		$this->suspended = false;
 		
@@ -132,6 +132,15 @@ class User {
 			'username' => $next->username,
 			'password' => $next->password
 		);
+	}
+	
+	// Metodo agregado por Raul Medina. Cambia el estatus del campo user.active a 1
+	public function approveUser() {
+		$this->active = true;
+		$this->rejected = false;
+		$this->suspended = false;
+		
+		return true;
 	}
 
 	public function reject()
@@ -303,7 +312,22 @@ class User {
 		if(!empty($args)) {
 			$sql_array = array();
 			foreach($args as $key => $value){
-				$sql_array[] = "$key = '$value'";
+				$condicion = explode(" ", $key);
+				$operador = "";
+				if(sizeof($condicion) > 1) {
+					$campo = $condicion[0];
+					for($i=1; $i<sizeof($condicion); $i++) {
+						$operador .= $condicion[$i] . " ";
+					}
+					$operador = trim($operador);
+					if($value == "NULL") {
+						$sql_array[] = "$campo $operador $value";
+					} else {
+						$sql_array[] = "$campo $operador '$value'";
+					}
+				} else {
+					$sql_array[] = "$key = '$value'";
+				}
 			}
 			$sql = $sql . " WHERE " . implode(' AND ', $sql_array);
 		}

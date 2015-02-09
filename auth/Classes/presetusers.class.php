@@ -19,8 +19,10 @@ class PresetUsers{
 			}
 		} else {
 			try{
-				$stmt = $pdo->prepare("SELECT * FROM preset_users WHERE used <> 1 AND institution = ? LIMIT 1");
-				$stmt->execute(array($user->institution));
+				//$stmt = $pdo->prepare("SELECT * FROM preset_users WHERE used <> 1 AND institution = ? LIMIT 1");
+				$stmt = $pdo->prepare("SELECT * FROM preset_users WHERE used <> 1 LIMIT 1");
+				//$stmt->execute(array($user->institution));
+				$stmt->execute();
 				$cred = $stmt->fetch();
 			} catch(PDOException $e){
 				print_r('get next preset user: ' . $e->getMessage());
@@ -62,7 +64,7 @@ class PresetUsers{
 	
 	private function CreateUsername($pdo, $user) {
 		$username = "usr";
-		$extra = "0001";
+		$extra = "0000001";
 		
 		$stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM preset_users WHERE institution = ? AND used = 1");
 		$stmt->execute(array($user->institution));
@@ -81,8 +83,8 @@ class PresetUsers{
 				$username = strtolower($shortname['shortname']);
 			}
 			
-			if($used['total'] > 0) {
-				$extra = str_pad(((int)$used['total'] + 1), 4, "0", STR_PAD_LEFT);
+			if($used && $used['total'] > 0) {
+				$extra = str_pad(((int)$used['total'] + 1), 7, "0", STR_PAD_LEFT);
 			}
 		}
 		

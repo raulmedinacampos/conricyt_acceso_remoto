@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
 encoding//auth/Classes/user.class.php=UTF-8
+encoding//auth/etech_imss_xls.php=UTF-8
+encoding//auth/registration.php=UTF-8
+encoding//auth/templates/etech_imss.twig=UTF-8
 encoding//auth/templates/registration.twig=UTF-8

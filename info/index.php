@@ -118,7 +118,7 @@ print"
 
 if ($queryme == 1) {
 
-$query = "SELECT count(*) FROM users WHERE firstname LIKE '%$firstname%' AND lastname LIKE '%$lastname%';";
+$query = "SELECT count(*) FROM users WHERE firstname LIKE '%$firstname%' AND (lastname1 LIKE '%$lastname%' OR lastname2 LIKE '%$lastname%');";
 $result = mysql_query($query) or die('Fallo al recuperar listado de usuarios: ' . mysql_error());
 $conteo = mysql_fetch_row($result);
 
@@ -140,67 +140,67 @@ print"
 		<td align='center'><b>Contraseña</b></td>
 	</tr>";
 
-$query = "SELECT id,firstname, lastname, institution, inst_email, comm_email, preset_user_id, active, rejected, suspended,fecha_reg,fecha_apr FROM users WHERE firstname LIKE '%$firstname%' AND lastname LIKE '%$lastname%' ORDER BY lastname;";
+$query = "SELECT id, firstname, lastname1, lastname2, institution, inst_email, comm_email, preset_user_id, active, rejected, suspended,fecha_reg,fecha_apr FROM users WHERE firstname LIKE '%$firstname%' AND (lastname1 LIKE '%$lastname%' OR lastname2 LIKE '%$lastname%') ORDER BY lastname1, lastname2;";
 $result = mysql_query($query) or die('Fallo al recuperar listado de usuarios: ' . mysql_error());
 while ($user = mysql_fetch_row($result))
 	{
 	print"
 		<tr>
 		<td>$user[0]</td>
-		<td>$user[2]</td>
+		<td>$user[2] $user[3]</td>
 		<td>$user[1]</td>
 		";
-$query2 = "SELECT * FROM inst WHERE id='$user[3]'";
+$query2 = "SELECT * FROM inst WHERE id='$user[4]'";
 $resulta = mysql_query($query2) or die('Fallo al recuperar institución: ' . mysql_error());
 $row3 = mysql_fetch_row($resulta);
 
 print"	<td>$row3[1]</td>";
 
-if ($user[6] != "") {
-	$query3 = "SELECT * FROM preset_users WHERE id=$user[6]";
+if ($user[7] != "") {
+	$query3 = "SELECT * FROM preset_users WHERE id=$user[7]";
 	$results = mysql_query($query3) or die('Fallo al recuperar claves de acceso: ' . mysql_error());
 	$row6 = mysql_fetch_row($results);}
 
-if ($user[7] == 1) {
+if ($user[8] == 1) {
 print"
 <td><form ACTION='sendmail.php' name='sendinst$user[0]' METHOD='post' target='sendmail'>
 <input type='hidden' value='$user[1]' name='firstname'>
-<input type='hidden' value='$user[2]' name='lastname'>
+<input type='hidden' value='$user[2] $user[3]' name='lastname'>
 <input type='hidden' value='$row3[1]' name='inst_name'>
 <input type='hidden' value='$row6[1]' name='username'>
 <input type='hidden' value='$row6[2]' name='password'>
-<input type='hidden' value='$user[4]' name='inst_email'>
-<input type='hidden' value='$user[11]' name='fecha_apr'>
-<a href='javascript:document.sendinst$user[0].submit();'>$user[4]</a>
+<input type='hidden' value='$user[5]' name='inst_email'>
+<input type='hidden' value='$user[12]' name='fecha_apr'>
+<a href='javascript:document.sendinst$user[0].submit();'>$user[5]</a>
 </form></td>";}else{
-print"<td>$user[4]</td>";}
+print"<td>$user[5]</td>";}
 
-if ($user[5] != "")
+if ($user[6] != "")
 {
-	if ($user[7] == 1) {
+	if ($user[8] == 1) {
 	print"
 	<td><form ACTION='sendmail.php' name='sendcomm$user[0]' METHOD='post' target='sendmail'>
 	<input type='hidden' value='$user[1]' name='firstname'>
-	<input type='hidden' value='$user[2]' name='lastname'>
+	<input type='hidden' value='$user[2] $user[3]' name='lastname'>
 	<input type='hidden' value='$row3[1]' name='inst_name'>
 	<input type='hidden' value='$row6[1]' name='username'>
 	<input type='hidden' value='$row6[2]' name='password'>
-	<input type='hidden' value='$user[5]' name='comm_email'>
-	<input type='hidden' value='$user[11]' name='fecha_apr'>
-	<a href='javascript:document.sendcomm$user[0].submit();'>$user[5]</a>
+	<input type='hidden' value='$user[6]' name='comm_email'>
+	<input type='hidden' value='$user[12]' name='fecha_apr'>
+	<a href='javascript:document.sendcomm$user[0].submit();'>$user[6]</a>
 	</form></td>";}else{
-	print"<td>$user[5]</td>";}
+	print"<td>$user[6]</td>";}
 }else{
 print"<td>&nbsp;</td>";
 }
 
-if ($user[7] == 1) print"<td><font color='#0000FF'>Activo</font></td>";
-if ($user[8] == 1) print"<td><font color='#FF0000'>Rechazado</font></td>";
-if ($user[9] == 1) print"<td><font color='#FF0000'>Suspendido</font></td>";
-if ($user[7]+$user[8]+$user[9] == 0) print"<td><font color='#808000'>Pendiente</font></td>";
+if ($user[8] == 1) print"<td><font color='#0000FF'>Activo</font></td>";
+if ($user[9] == 1) print"<td><font color='#FF0000'>Rechazado</font></td>";
+if ($user[10] == 1) print"<td><font color='#FF0000'>Suspendido</font></td>";
+if ($user[8]+$user[9]+$user[10] == 0) print"<td><font color='#808000'>Pendiente</font></td>";
 print"
-		<td>$user[10]</td>
 		<td>$user[11]</td>
+		<td>$user[12]</td>
 		";
 if ($user[6] != "") {
 	print"
