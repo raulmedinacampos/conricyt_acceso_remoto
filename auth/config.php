@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Classes/presetusers.class.php';
+require_once 'Classes/presetusersold.class.php';
 require_once 'Classes/user.class.php';
 require_once 'Classes/email.class.php';
 require_once 'Classes/recaptchalib.php';

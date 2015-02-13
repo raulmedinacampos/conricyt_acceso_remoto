@@ -249,21 +249,37 @@ if(isset($_GET['profile'])){
 } elseif (isset($_POST['verify'])) {
 	$userid = $_POST['verify'];
 	$user = new User($pdo, $userid);
-	if($user->generateCredentials() == false){
+	if($user->generateCredentialsOld() == false){
 	//if($user->createUsername() == false){
 		echo 'false';
 	} else {
 		$user->save();
-		$email = new Email($twig, 
-			array($user->inst_email), 
-			'consorcio@conacyt.mx', 
-			'verified.mail.twig',
-			array(
-				'user' => $user
-			)
-		);
-
+		
+		if($user->comm_email) {
+			$email = new Email($twig,
+				array($user->comm_email),
+				'consorcio@conacyt.mx',
+				'verified.mail.twig',
+				array(
+						'user' => $user
+				)
+			);
+		}
+		
 		$email->send('PDF');
+		
+		if($user->inst_email) {
+			$email = new Email($twig, 
+				array($user->inst_email), 
+				'consorcio@conacyt.mx', 
+				'verified.mail.twig',
+				array(
+					'user' => $user
+				)
+			);
+	
+			$email->send('PDF');
+		}
 	}
 } elseif (isset($_POST['auth'])) {
 	$userid = $_POST['auth'];

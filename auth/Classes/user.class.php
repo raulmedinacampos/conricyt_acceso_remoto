@@ -115,6 +115,24 @@ class User {
 	{
 		return $this->id;
 	}
+	
+	public function generateCredentialsOld(){
+		$next = new PresetUsersOld($this->pdo, $this);
+		if(empty($next->id)){
+			return false;
+		}
+		$this->presetuser_id = $next->id;
+		//$this->presetuser_id = $next->Insert($this->pdo, $this);
+		$this->active = true;
+		$this->rejected = false;
+		$this->suspended = false;
+		
+		$next->Used($this->pdo);
+		return array(
+				'username' => $next->username,
+				'password' => $next->password
+		);
+	}
 
 	public function generateCredentials(){
 		$next = new PresetUsers($this->pdo, $this);

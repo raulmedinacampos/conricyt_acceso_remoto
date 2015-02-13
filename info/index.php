@@ -202,7 +202,7 @@ print"
 		<td>$user[11]</td>
 		<td>$user[12]</td>
 		";
-if ($user[6] != "") {
+if ($user[7] != "") {
 	print"
 			<td>$row6[1]</td>
 			<td>$row6[2]</td>
