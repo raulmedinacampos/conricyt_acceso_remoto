@@ -18,6 +18,26 @@ class Email{
 		$this->from = $from;
 		$this->message = $message;
 		$this->args = $args;
+		
+		/* Funciones de la libreria PHPMailer */
+		$this->phpmailer = new PHPMailer();
+		$this->phpmailer->IsSMTP();
+		$this->phpmailer->SMTPDebug  = 0;
+		$this->phpmailer->SMTPAuth   = true;					// activa autenticación
+		$this->phpmailer->Host       = "smtp.gmail.com";		// servidor de correo
+		//$this->phpmailer->Host       = "74.125.136.108";		// servidor de correo
+		$this->phpmailer->Port       = 465;                    // puerto de salida que usa Gmail
+		$this->phpmailer->SMTPSecure = 'ssl';					// protocolo de autenticación
+		$this->phpmailer->Username   = "conricyt@gmail.com";
+		$this->phpmailer->Password   = 'C0nR1c17p1x3l8lu3';
+			
+		$this->phpmailer->SetFrom('conricyt@gmail.com', 'CONRICyT');
+			
+		foreach($to as $correo) {
+			$this->phpmailer->AddAddress($correo);
+		}
+		
+		$this->phpmailer->CharSet = 'UTF-8';
 	}
 
 	private function getTemplate()
@@ -56,9 +76,14 @@ class Email{
 	{
 		$template = $this->getTemplate();
 		
+		$this->phpmailer->Subject    = utf8_encode($template['subject']);
+		$this->phpmailer->AltBody    = utf8_encode($template['subject']);
+		
+		$this->phpmailer->MsgHTML($template['message']);
+		
 		if($tipo=="PDF"){
 			$file = "terms.pdf";
-			$file_size = filesize($file);
+			/*$file_size = filesize($file);
 			$handle = fopen($file, "r");
 			$content = fread($handle, $file_size);
 			fclose($handle);
@@ -82,10 +107,14 @@ class Email{
 			$header .= $content."\r\n\r\n";
 			$header .= "--".$uid."--";
 			
-			mail(implode(', ', $this->to), $template['subject'], "", $header);
+			mail(implode(', ', $this->to), $template['subject'], "", $header);*/
+			$this->phpmailer->AddAttachment($file);
 		}else{
-			mail(implode(', ', $this->to),$template['subject'],$template['message'],$this->getHeaders());
+			//mail(implode(', ', $this->to),$template['subject'],$template['message'],$this->getHeaders());
+			
 		}
+		
+		$this->phpmailer->Send();
 	}
 
 }

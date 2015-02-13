@@ -167,7 +167,7 @@ if(isset($_GET['profile'])){
 			);
 		}
 
-		$email->send();
+		$email->send('PDF');
 		
 		if($precarga) {
 			if($user->inst_email) {
@@ -180,7 +180,7 @@ if(isset($_GET['profile'])){
 						)
 				);
 				
-				$email->send();
+				$email->send('PDF');
 			}
 		} else {
 			if($user->inst_email) {
@@ -193,7 +193,7 @@ if(isset($_GET['profile'])){
 						)
 				);
 			
-				$email->send();
+				$email->send('PDF');
 			}
 		}
 

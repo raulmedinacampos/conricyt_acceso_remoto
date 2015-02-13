@@ -4,6 +4,8 @@ require_once 'Classes/presetusers.class.php';
 require_once 'Classes/presetusersold.class.php';
 require_once 'Classes/user.class.php';
 require_once 'Classes/email.class.php';
+require_once 'Classes/class.phpmailer.php';
+require_once 'Classes/class.smtp.php';
 require_once 'Classes/recaptchalib.php';
 require_once 'db.connect.php';
 
