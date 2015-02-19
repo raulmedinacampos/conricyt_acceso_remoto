@@ -7,7 +7,9 @@
 
 <body>
 
-<?PHP
+<?php
+require_once 'class.phpmailer.php';
+require_once 'class.smtp.php';
 
 if (isset($_POST['firstname']))
 {
@@ -55,7 +57,7 @@ if (isset($_POST['fecha_apr']))
 	$asunto = "CONRICYT -  Autorización de acceso remoto";
 
 	//para el envío en formato HTML
-	$headers = "MIME-Version: 1.0\r\n";
+	/*$headers = "MIME-Version: 1.0\r\n";
 	$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 
 	//dirección del remitente
@@ -71,7 +73,26 @@ if (isset($_POST['fecha_apr']))
 	$headers .= "Bcc: conricyt@gmail.com\r\n";
 
 	//direcciones que recibirán copia oculta
-	$headers .= "Bcc: nilbalion@outlook.com\r\n";
+	$headers .= "Bcc: nilbalion@outlook.com\r\n";*/
+	
+	$mail = new PHPMailer();
+	$mail->IsSMTP();
+	$mail->SMTPDebug  = 0;
+	$mail->SMTPAuth   = true;					// activa autenticación
+	//$mail->Host       = "smtp.gmail.com";		// servidor de correo
+	$mail->Host       = "74.125.136.108";		// servidor de correo
+	$mail->Port       = 465;                    // puerto de salida que usa Gmail
+	$mail->SMTPSecure = 'ssl';					// protocolo de autenticación
+	$mail->Username   = "conricyt@gmail.com";
+	$mail->Password   = 'C0nR1c17p1x3l8lu3';
+	$mail->Subject    = $asunto;
+	$mail->AltBody    = $asunto;
+	
+	$mail->SetFrom('conricyt@gmail.com', 'CONRICyT');
+		
+	$mail->AddAddress($destinatario);
+	
+	//$mail->CharSet = 'UTF-8';
 
 	$cuerpo = "<title>Servicio de Acceso Remoto - CONRICYT</title></head><body><h1>Autorización Acceso Remoto - CONRICYT</h1>";
 	$cuerpo .="<h3><strong>Apreciable ".$firstname." ".$lastname.",</strong></h3><div align='center'>";
@@ -110,7 +131,11 @@ if (isset($_POST['fecha_apr']))
 	$cuerpo .="inmediata e irrevocable de mi clave de acceso remoto, sin que pueda ser sujeto(a) a una renovación de la misma. La suspensión inmediata e irrevocable de ";
 	$cuerpo .="mi clave de acceso remoto será notificada a mi Institución de adscripción.<br /></p></div>";
 	
-	mail($destinatario,$asunto,$cuerpo,$headers);
+	$mail->MsgHTML($cuerpo);
+	
+	$mail->Send();
+	
+	//mail($destinatario,$asunto,$cuerpo,$headers);
 
 print"
 <h2 align='center'>
