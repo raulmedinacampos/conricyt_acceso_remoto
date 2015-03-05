@@ -1,0 +1,130 @@
+{% extends 'master.twig' %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#userlist').on('click', '.approve', function(event){
+		event.preventDefault();
+		var id = $(event.target).parent().parent().siblings('.identifier').text();
+		$.post(
+			'registration.php',
+			{'verify' : id},
+			function(data){
+				console.log(data);
+				if(data == 'false'){
+					noty({
+						text : 'Not Successful',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				} else {
+					$(event.target).parent().hide();
+					noty({
+						text : 'Success',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				}
+			}
+		);
+	});
+
+	$('#userlist').on('click', '.reject', function(event){
+		event.preventDefault();
+		var id = $(event.target).parent().parent().siblings('.identifier').text();
+		$.post(
+			'registration.php',
+			{'reject' : id},
+			function(data){
+				console.log(data);
+				if(data == 'false'){
+					noty({
+						text : 'Not Successful',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				} else {
+					$(event.target).parent().parent().parent().hide();
+					noty({
+						text : 'Success',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				}
+			})
+	})
+	$('#userlist').on('click', '.suspend', function(event){
+		event.preventDefault();
+		var id = $(event.target).parent().parent().siblings('.identifier').text();
+		var req_data = {'suspend' : id}
+		if($(event.target).attr('id')=== 'un'){
+			req_data = {
+				'suspend' : id,
+				'un' : true
+			}
+		}
+		$.post(
+			'registration.php',
+			req_data,
+			function(data){
+				console.log(data);
+				if(data == 'false'){
+					noty({
+						text : 'Not Successful',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				} else {
+					if($(event.target).attr('id')=== 'un'){
+						$(event.target).text('Suspend').removeAttr('id');
+					} else {
+						$(event.target).text('Unsuspend').attr('id', 'un');
+					}
+					noty({
+						text : 'Success',
+						timeout : 2000,
+						layout : 'topRight'
+					});
+				}
+			});
+	})
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<h2>Lista de usuarios IMSS pendientes</h2>
+<div style="padding-right:20px; text-align:right;"><a href="imss_pendientes_xls.php" style="color: #FFFFFF;"><span style="background-color:#217446; border-radius:6px; font-family:arial,sans-serif; font-size:13px; font-weight:bold; padding:5px 20px;">Exportar a Excel</span></a></div>
+<table border='1' style='font-size:10px;'>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>ID</th>
+			<th>Nombre completo</th>
+			<th>Matrícula</th>
+			<th>Delegación</th>
+			<th>Clave Est Org</th>
+			<th>Adscripción</th>
+			<th>Fecha de registro</th>
+		</tr>
+	</thead>
+	<tbody id='userlist'>
+		{% set i = 0 %}
+		{% for user in users %}
+			{% set i = i + 1 %}
+		<tr>
+			<th>{{ i }}</th>
+			<th class='identifier'>{{ user.id }}</th>
+			<td>{{ [user.firstname, user.lastname1, user.lastname2]|join(' ') }}</td>
+			<td>{{ user.account_num }}</td>
+			<td>{{ user.Delegacion }}</td>
+			<td>{{ user.clave_est_org }}</td>
+			<td>{{ user.unit_faculty }}</td>
+			<td>{{ user.fecha_reg }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}
