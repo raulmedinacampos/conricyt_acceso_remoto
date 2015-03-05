@@ -66,8 +66,24 @@ class PresetUsers{
 		$username = "usr";
 		$extra = "0000001";
 		
-		$stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM preset_users WHERE institution = ? AND used = 1");
+		$stmt = $pdo->prepare("SELECT id, shortname FROM inst WHERE id = ?");
 		$stmt->execute(array($user->institution));
+		$inst = $stmt->fetch();
+		
+		$stmt = $pdo->prepare("SELECT id, shortname FROM inst WHERE shortname = ?");
+		$stmt->execute(array($inst['shortname']));
+		$instituciones = "";
+		while($inst = $stmt->fetch()) {
+			$instituciones .= $inst['id'].',';
+		}
+		
+		$instituciones = trim($instituciones, ',');
+		
+		//$stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM preset_users WHERE institution = ? AND used = 1");
+		//$stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM preset_users WHERE (institution = ? OR username LIKE ?) AND used = 1");
+		$stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM preset_users WHERE institution IN(".$instituciones.") AND used = 1");
+		//$stmt->execute(array($user->institution));
+		$stmt->execute();
 		$used = $stmt->fetch();
 		
 		// Si el usuario es del IMSS el usuario es el mismo que la cuenta

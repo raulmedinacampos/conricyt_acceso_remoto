@@ -103,7 +103,7 @@ $(document).ready(function(){
 			<th>ID</th>
 			<th>Nombre</th>
 			<th>Apellido</th>
-			<th>RFC con homoclave</th>
+			<!--<th>RFC con homoclave</th>-->
 			<th>Sexo</th>
 			<th>Institución a la que pertenece</th>
 			<th>Número de Empleado o Número Económico / Matricula o Número de Cuenta</th>
@@ -123,7 +123,7 @@ $(document).ready(function(){
 			<th class='identifier'>{{ user.id }}</th>
 			<td>{{ user.firstname }}</td>
 			<td>{{ [user.lastname1, user.lastname2]|join(' ') }}</td>
-			<td>{{ user.rfc }}</td>
+			<!--<td>{{ user.rfc }}</td>-->
 			<td>{{ user.Gender }}</td>
 			<td>{{ user.Institution.inst_name }}</td>
 			<td>{{ user.account_num }}</td>

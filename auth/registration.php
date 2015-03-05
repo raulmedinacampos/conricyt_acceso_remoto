@@ -239,7 +239,7 @@ if(isset($_GET['profile'])){
 	} elseif($_GET['user'] == 'rejected'){
 		$users = User::find($pdo, array('active' => 0, 'rejected' => 1));
 	} elseif($_GET['user'] == 'unapproved') {
-		$users = User::find($pdo, array('active' => 0, 'rejected' => 0));
+		$users = User::find($pdo, array('active' => 0, 'rejected' => 0, 'fecha_reg >=' => '2015-02-05 19:00:00'));
 		echo $twig->render('verification_new.twig', array('users' => $users) ); exit();
 	} else {
 

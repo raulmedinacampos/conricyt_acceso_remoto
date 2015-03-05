@@ -200,6 +200,14 @@ class User {
 		$gender = $gender->fetch();
 		return $gender['name'];
 	}
+	
+	public function Delegacion()
+	{
+		$deleg = $this->pdo->prepare("SELECT * FROM cat_deleg_imss WHERE id = ?");
+		$deleg->execute(array($this->deleg_imss));
+		$deleg = $deleg->fetch();
+		return $deleg['delegacion'];
+	}
 
 	public function Profile()
 	{
