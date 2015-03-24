@@ -1,8 +1,8 @@
 <?php
 
 $host = '127.0.0.1';
-$username = 'conricyt_4r3m070';
-$password = '3zpr0x1blu3';
+$username = 'root';
+$password = '';
 $dbname = 'conricyt_proxy';
 
 try {

@@ -1,59 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Summon- Ingrese</title>
-
-{% block css %}
-	<link href="css/thrColFix.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Summon- Ingrese</title> {% block css %}
+<link href="css/thrColFix.css" rel="stylesheet" type="text/css" />
+<link href="css/template.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
-	<style type="text/css">
-	<!--
+<style type="text/css">
+<!--
+.COLOR {
+	color: #FF8000;
+}
 
-	.COLOR {
-		color: #FF8000;
-	}
-	.GRIS {
-		color: #808080;
-	}
-	p {
-		font-family: Arial, Helvetica, sans-serif;
-		font-size: 0.8em;
-	}
-	body	{
-		
-		margin: 0;
+.GRIS {
+	color: #808080;
+}
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+}
+
+body {
+	margin: 0;
 	padding: 0;
-		color: #666;
-	}
-	h2 {
-		color: #6981AD;
-	}
-	#close {
-		float: right;
-	}
-	#content {
-		padding-right: 10px;
-		padding-left: 10px;
-	
-	}
-	-->
-	</style>
+	background-color: #E7E7E7;
+	color: #666;
+}
 
-</head> 
+h2 {
+	color: #6981AD;
+}
+
+#close {
+	float: right;
+}
+
+#content {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+-->
+</style>
+
+</head>
 
 <body>
+	<div id="sdxIconosAuxiliares"></div>
 
 	<div class="container">
-	  <div class="content">
-		  <div style="text-align:center;">
-				<img src="images/header-summon-background-01.png" alt="header" />
+		<div id="sdxFondoHeader"></div>
+		<div class="content">
+			<div id="header">
+				<div id="logos">
+					<a href="http://www.conricyt.mx">
+						<img title="LOGO CONRICYT" alt="LOGO CONRICYT" src="images/ch_logo1.png" id="logo" />
+						<img title="LOGO CONRICYT" alt="LOGO CONRICYT" src="images/ch_titulo.png" id="texto" />
+					</a>
+					<a href="http://www.conacyt.mx">
+						<img title="LOGO CONACYT" alt="LOGO CONACYT" src="images/ch_logo2.png" id="logo_conacyt" />
+					</a>
+				</div> <!-- id_logos -->
+				<div id="nav"></div>
+			</div> <!-- header -->
+			<div style="text-align: center;">
 				{% block content %}{% endblock %}
+
+				<div id="footerout">
+					<div id="sdxFooterData">
+						<div id="nav2">
+							<ul style="margin: 0 auto; padding: 0.25em 0 1em; width: 960px;">
+								<li style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx">Inicio</a>
+								</li>
+								<li style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx/acerca-del-consorcio">Acerca del Consorcio</a>
+								</li>
+								<li style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx/acervo-editorial">Acervo Editorial</a>
+								</li>
+								<li style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx/noticias-y-avisos">Noticias y Avisos</a>
+								</li>
+								<li style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx/capacitacion">Capacitaci&oacute;n</a>
+								</li>
+								<li style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx/contacto">Contacto</a>
+								</li>
+								<li class="last" style="font-family: sans-serif;">
+									<a href="http://www.conricyt.mx/conricyt-select">Acceso Remoto</a>
+								</li>
+							</ul>
+						</div>
+						<!-- id_nav2 -->
+						<address>
+							CONSORCIO NACIONAL DE RECURSOS DE INFORMACI&Oacute;N
+							CIENT&Iacute;FICA Y TECNOL&Oacute;GICA (CONRICYT)<br /> Copyright
+							&copy; 2012 Derechos Reservados<br /> <br /> Av. Insurgentes Sur
+							1582, Col. Cr&eacute;dito Constructor, Del. Benito Ju&aacute;rez<br />
+							03940, M&eacute;xico, D.F.&nbsp;Tel: (55) 5322-7700. Ext. 4020 a
+							la 4026
+						</address>
+					</div>
+					<!-- id_sdxFooter -->
+				</div>
+				<!-- footerout -->
+			</div>
 		</div>
-	  </div>
-	
-</div>
+
+	</div>
 	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>

@@ -21,8 +21,9 @@
 }
 .content {
 
-	padding: 10px 0;
-
+	border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+    box-shadow: 0 0 20px #000000;
 }
 
 
@@ -70,7 +71,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 	
 	
 }
-#form1 {font-family:Arial, Helvetica, sans-serif;color:#333333;font-weight:bold;}
+#form1 {font-family:Arial, Helvetica, sans-serif;color:#333333;font-weight:bold;clear:both;}
 #form1 dd,#form1 dt{padding:0.25em 0;}
 #form1 dt{float: left; width: 32ex; text-align: right; margin-left: 100px; margin-right: -100px;}
 #form1 dt label{color:#333333;font-size:0.8125em;font-weight:bold;  text-align:right;}
@@ -92,7 +93,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
 .error {color:red; float;left; width:200px;}
 #recaptcha_area, #recaptcha_table {
-        margin-left: 250px;
+	margin: auto;
 }
 
 input { 
