@@ -301,7 +301,7 @@ if(isset($_GET['profile'])){
 				'user' => $user
 			)
 		);
-		$email->send();
+		//$email->send();
 	} else {
 		echo 'false';
 	}

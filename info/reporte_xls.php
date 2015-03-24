@@ -10,7 +10,7 @@
 	$fila = 6;
 	$where = "";
 	$join = "";
-	$orden = " ORDER BY u.firstname, u.lastname";
+	$orden = " ORDER BY u.firstname, u.lastname1, u.lastname2";
 	
 	$sede = (isset($_POST['institucion'])) ? $_POST['institucion'] : "";
 	$aprobado = (isset($_POST['aprobado'])) ? $_POST['aprobado'] : "";
@@ -26,7 +26,7 @@
 	}
 
 	$base = "
-		SELECT u.id, u.firstname, u.lastname, pu.username, pu.password, g.name AS sexo, u.account_num, u.inst_email, u.comm_email, u.preset_user_id, i.inst_name, u.unit_faculty, l.name  AS perfil, u.active, u.rejected, u.suspended
+		SELECT u.id, u.firstname, u.lastname1, u.lastname2, pu.username, pu.password, g.name AS sexo, u.account_num, u.inst_email, u.comm_email, u.preset_user_id, i.inst_name, u.unit_faculty, l.name  AS perfil, u.active, u.rejected, u.suspended
 		FROM users u
 		INNER JOIN gender g ON u.gender=g.id
 		INNER JOIN inst i ON u.institution = i.id
@@ -131,7 +131,7 @@
 		}
 		
 		$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('A'.$fila, utf8_encode(trim(ucwords(strtolower($row->firstname))." ".ucwords(strtolower($row->lastname)))))
+			->setCellValue('A'.$fila, utf8_encode(trim(ucwords(strtolower($row->firstname))." ".ucwords(strtolower($row->lastname1))." ".ucwords(strtolower($row->lastname2)))))
 			->setCellValue('B'.$fila, $row->username)
 			->setCellValue('C'.$fila, $row->password)
 			->setCellValue('D'.$fila, ucfirst($row->sexo))

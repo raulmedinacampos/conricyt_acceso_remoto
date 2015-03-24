@@ -10,7 +10,8 @@ require_once 'lib/phpexcel/Classes/PHPExcel.php';
 $query = "SELECT u.id, firstname, lastname1, lastname2, inst_name, username, password, fecha_reg ";
 $query .= "FROM users u JOIN inst i ON u.institution = i.id ";
 $query .= "LEFT JOIN preset_users pu ON u.preset_user_id = pu.id ";
-$query .= "WHERE u.institution = 475 AND active = 1 AND deleg_imss IS NOT NULL";
+$query .= "WHERE u.institution = 475 AND active = 1 AND deleg_imss IS NOT NULL ";
+$query .= "AND u.account_num IN(SELECT account_num FROM preaprobado)";
 $users = $pdo->query($query)->fetchAll();
 $fila = 1;
 

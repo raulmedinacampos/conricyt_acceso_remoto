@@ -125,4 +125,35 @@ $(document).ready(function(){
 	</tbody>
 </table>
 
+<h2>Usuarios IMSS autorizados con solicitud</h2>
+<div style="padding-right:20px; text-align:right;"><a href="etech_imss_xls2.php" style="color: #FFFFFF;"><span style="background-color:#217446; border-radius:6px; font-family:arial,sans-serif; font-size:13px; font-weight:bold; padding:5px 20px;">Exportar a Excel</span></a></div>
+<table border='1' style='font-size:10px;'>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>ID</th>
+			<th>Nombre completo</th>
+			<th>Institución a la que pertenece</th>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Fecha de registro</th>
+		</tr>
+	</thead>
+	<tbody id='userlist'>
+		{% set i = 0 %}
+		{% for user in users2 %}
+			{% set i = i + 1 %}
+		<tr>
+			<th>{{ i }}</th>
+			<th class='identifier'>{{ user.id }}</th>
+			<td>{{ [user.firstname, user.lastname1, user.lastname2]|join(' ') }}</td>
+			<td>{{ user.Institution.inst_name }}</td>
+			<td>{{ user.Credentials.username }}</td>
+			<td>{{ user.Credentials.password }}</td>
+			<td>{{ user.fecha_reg }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
 {% endblock %}

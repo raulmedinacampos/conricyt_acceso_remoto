@@ -8,3 +8,5 @@ encoding//auth/templates/imss_pendientes.twig=UTF-8
 encoding//auth/templates/registration.twig=UTF-8
 encoding//auth/templates/verification.twig=UTF-8
 encoding//auth/templates/verification_new.twig=UTF-8
+encoding//authsni/templates/registration.twig=UTF-8
+encoding//info/reporte_xls.php=UTF-8
