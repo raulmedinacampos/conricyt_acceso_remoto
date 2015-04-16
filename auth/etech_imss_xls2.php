@@ -7,7 +7,7 @@ ob_start();
 require_once('config.php');
 require_once 'lib/phpexcel/Classes/PHPExcel.php';
 
-$query = "SELECT u.id, firstname, lastname1, lastname2, inst_name, username, password, fecha_reg ";
+$query = "SELECT u.id, firstname, lastname1, lastname2, inst_name, username, password, fecha_reg, fecha_apr ";
 $query .= "FROM users u JOIN inst i ON u.institution = i.id ";
 $query .= "LEFT JOIN preset_users pu ON u.preset_user_id = pu.id ";
 $query .= "WHERE u.institution = 475 AND active = 1 AND deleg_imss IS NOT NULL ";
@@ -19,10 +19,10 @@ $fila = 1;
 $objPHPExcel = new PHPExcel();
 
 // Encabezado de la tabla
-	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':F'.$fila)->getFont()->setBold(true);
-	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':F'.$fila)->getFont()->getColor()->setRGB('FFFFFF');
-	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':F'.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('002147');
-	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':F'.$fila)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':G'.$fila)->getFont()->setBold(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':G'.$fila)->getFont()->getColor()->setRGB('FFFFFF');
+	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':G'.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('002147');
+	$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':G'.$fila)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 	
 	$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'.$fila, 'ID')
@@ -30,7 +30,8 @@ $objPHPExcel = new PHPExcel();
 				->setCellValue('C'.$fila, 'Institución a la que pertenece')
 				->setCellValue('D'.$fila, 'Usuario')
 				->setCellValue('E'.$fila, 'Contraseña')
-				->setCellValue('F'.$fila, 'Fecha de registro');
+				->setCellValue('F'.$fila, 'Fecha de registro')
+				->setCellValue('G'.$fila, utf8_encode('Fecha de aprobación'));
 
 // Se llena con los datos
 foreach($users as $user) {
@@ -40,7 +41,8 @@ foreach($users as $user) {
 				->setCellValue('C'.$fila, $user['inst_name'])
 				->setCellValue('D'.$fila, $user['username'])
 				->setCellValue('E'.$fila, $user['password'])
-				->setCellValue('F'.$fila, $user['fecha_reg']);
+				->setCellValue('F'.$fila, $user['fecha_reg'])
+				->setCellValue('G'.$fila, $user['fecha_apr']);
 }
 
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
@@ -49,6 +51,7 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 
 
 // Nombre de la hoja
